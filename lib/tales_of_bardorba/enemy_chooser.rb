@@ -15,9 +15,7 @@ module TalesOfBardorba
     end
 
     def choose
-      @enemies.sample
+      @enemies.sample.dup
     end
   end
 end
-
-

@@ -1,1 +1,1 @@
-require_relative "tales_of_bardorba/game"
+require_relative "tales_of_bardorba/start_menu"

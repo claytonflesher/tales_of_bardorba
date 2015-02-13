@@ -1,17 +1,14 @@
 module TalesOfBardorba
   class Player
-    def initialize(hp = 100, hit = 10, defense = 2)
+    def initialize(name, hp = 100, hit = 10, defense = 2)
+      @name     = name
       @hp       = hp
       @hit      = hit
       @defense  = defense
     end
   
     attr_accessor :hp
-    attr_reader :hit, :defense
-
-    def name
-      "Calvyn"
-    end
+    attr_reader :hit, :defense, :name
 
     def damage
       rand(1..6)

@@ -1,4 +1,4 @@
-require "io/console"
+require_relative "input"
 
 module TalesOfBardorba
   class Combat
@@ -10,7 +10,7 @@ module TalesOfBardorba
     attr_reader :player, :enemy
 
     def round
-      response = get_player_action
+      response = Input.new("A for attack?", %w[A]).get_char
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
           perform_player_action(response)
@@ -21,14 +21,7 @@ module TalesOfBardorba
       puts "#{player.name}'s current hp is #{player.hp}"
       puts
     end
-
-    def get_player_action
-      print "A for attack?  "
-      response = $stdin.getch.upcase 
-      puts response
-      response
-    end
-
+    
     def perform_player_action(action)
       case action
       when "A"

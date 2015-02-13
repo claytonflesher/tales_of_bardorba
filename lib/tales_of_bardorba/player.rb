@@ -21,5 +21,14 @@ module TalesOfBardorba
     def to_s
       [name, hp, hit, defense].join("|")
     end
+
+    def at_will_spells
+      %w[Zap]
+    end
+
+    def encounter_spells
+      %w[]
+    end
+
   end
 end

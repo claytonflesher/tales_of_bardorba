@@ -17,5 +17,9 @@ module TalesOfBardorba
     def dead?
       hp < 0
     end
+
+    def to_s
+      [name, hp, hit, defense].join("|")
+    end
   end
 end

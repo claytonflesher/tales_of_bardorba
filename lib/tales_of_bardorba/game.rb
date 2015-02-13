@@ -1,6 +1,7 @@
 require_relative "enemy_chooser"
 require_relative "combat"
 require_relative "input"
+require_relative "saved_game"
 
 
 module TalesOfBardorba
@@ -37,6 +38,11 @@ module TalesOfBardorba
       enemy = enemy_chooser.choose
       puts "Suddenly, you encounter #{enemy.name}!"
       Combat.new(player, enemy).resolve
+    end
+
+    def save
+      SavedGame.new.create(player)
+      puts "Game saved."
     end
 
     def quit

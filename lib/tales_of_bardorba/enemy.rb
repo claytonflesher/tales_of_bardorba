@@ -8,8 +8,8 @@ module TalesOfBardorba
       @stunned_for  = 0
     end
 
-    attr_accessor :hp, :stunned_for
-    attr_reader :hit, :defense, :name
+    attr_accessor :hp, :defense, :stunned_for
+    attr_reader :hit, :name
     
     def damage
       rand(1..6)

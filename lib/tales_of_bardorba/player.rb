@@ -1,13 +1,14 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, hp = 100, hit = 10, defense = 2)
+    def initialize(name, hp = 100, hit = 10, defense = 2, encounter_spell = 1)
       @name     = name
       @hp       = hp
       @hit      = hit
       @defense  = defense
+      @encounter_spell = 1
     end
   
-    attr_accessor :hp
+    attr_accessor :hp, :encounter_spell 
     attr_reader :hit, :defense, :name
 
     def damage
@@ -27,7 +28,7 @@ module TalesOfBardorba
     end
 
     def encounter_spells
-      %w[]
+      %w[Sap]
     end
 
   end

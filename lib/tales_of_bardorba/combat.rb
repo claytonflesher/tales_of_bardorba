@@ -51,8 +51,7 @@ module TalesOfBardorba
       when "S"
         resolve_spell(spell_name, player, enemy)
       when "R"
-        @ran_away = true
-        puts "You run away like a coward.\nCongratulations, coward. You live to see another day."
+        run_away(enemy)
       end
     end
 
@@ -106,6 +105,16 @@ module TalesOfBardorba
 
     def encounter_spell_available?
       player.encounter_spell > 0
+    end
+
+    def run_away(enemy)
+      attempt     = rand(3)
+      if attempt > 1 || enemy.stunned_for > 0
+        puts "You run away like a coward.\nCongratulations, coward. You live to see another day."
+        @ran_away = true
+      else
+        puts "You failed to escape.\nCongratulations, you just wasted a turn."
+      end
     end
   end
 end

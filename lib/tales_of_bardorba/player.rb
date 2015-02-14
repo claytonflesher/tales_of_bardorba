@@ -5,10 +5,10 @@ module TalesOfBardorba
       @hp       = hp
       @hit      = hit
       @defense  = defense
-      @encounter_spell = 1
+      @encounter_spells_available = 1
     end
   
-    attr_accessor :hp, :encounter_spell 
+    attr_accessor :hp, :encounter_spells_available 
     attr_reader :hit, :defense, :name
 
     def damage

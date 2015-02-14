@@ -19,7 +19,7 @@ module TalesOfBardorba
       elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
       end
-      player.encounter_spell = 1
+      player.encounter_spells_available = 1
     end
 
     def round
@@ -97,14 +97,14 @@ module TalesOfBardorba
       when "Sap"
         if encounter_spell_available?
           enemy.defense -= 1
-          player.encounter_spell -= 1
+          player.encounter_spells_available -= 1
           puts "The enemy's defenses have been weakened."
         end
       end
     end
 
     def encounter_spell_available?
-      player.encounter_spell > 0
+      player.encounter_spells_available > 0
     end
 
     def run_away(enemy)

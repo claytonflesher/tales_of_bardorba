@@ -3,19 +3,20 @@ require_relative "input"
 module TalesOfBardorba
   class Combat
     def initialize(player, enemy)
-      @player = player
-      @enemy  = enemy
+      @player   = player
+      @enemy    = enemy
+      @ran_away = false
     end
 
     attr_reader :player, :enemy
 
     def resolve
-      until player.dead? || enemy.dead?
+      until player.dead? || enemy.dead? || @ran_away
         round
       end
       if player.dead?
         puts "#{player.name} died."
-      else
+      elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
       end
       player.encounter_spell = 1
@@ -50,7 +51,8 @@ module TalesOfBardorba
       when "S"
         resolve_spell(spell_name, player, enemy)
       when "R"
-        run_away
+        @ran_away = true
+        puts "You run away like a coward.\nCongratulations, coward. You live to see another day."
       end
     end
 

@@ -109,7 +109,7 @@ module TalesOfBardorba
 
     def run_away(enemy)
       attempt     = rand(3)
-      if attempt > 1 || enemy.stunned_for > 0
+      if attempt > 0 || enemy.stunned_for > 0
         puts "You run away like a coward.\nCongratulations, coward. You live to see another day."
         @ran_away = true
       else

@@ -1,5 +1,6 @@
 require_relative "input"
 require_relative "spell"
+require_relative "ability"
 
 module TalesOfBardorba
   class Combat
@@ -8,12 +9,13 @@ module TalesOfBardorba
       @enemy    = enemy
       @ran_away = false
       @spell    = spell
+      @ability  = ability
     end
 
-    attr_reader :player, :enemy, :ran_away, :spell
+    attr_reader :player, :enemy, :ran_away, :answer, :spell, :ability
 
     def resolve
-      player.reset_encounter_spells
+      reset_player_stats
       until player.dead? || enemy.dead? || ran_away?
         round
       end
@@ -24,11 +26,18 @@ module TalesOfBardorba
       end
     end
 
+    def reset_player_stats
+      player.reset_hit
+      player.reset_defense
+      player.reset_encounter_spells
+      player.reset_encounter_abilities
+    end
+
     def round
       responses = get_player_action
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
-          perform_player_action(responses.first, responses.last)
+          perform_player_action(responses[0], responses[1], responses[2])
         elsif actor == enemy && !enemy.dead?
           perform_enemy_action
         end
@@ -37,23 +46,32 @@ module TalesOfBardorba
     end
 
     def get_player_action
-      response = Input.new("[A]ttack\n[S]pell\n[R]un\n?", %w[A S R]).get_char
-      spell = nil
-      if response == "S"
+      response = Input.new("Attack\nAbility\nSpell\nRun\n?", %w[Attack Ability Spell Run]).get_line
+      additional_player_selections(response, player, enemy)
+    end
+
+    def additional_player_selections(answer, player, enemy)
+      ability = nil
+      spell   = nil
+      if answer == "Ability"
+        ability = Ability.new(player, enemy)
+        ability.choose
+      elsif answer == "Spell"
         spell = Spell.new(player, enemy)
         spell.choose
       end
-      return [response, spell]
+      return [answer, spell, ability]
     end
-
     
-    def perform_player_action(action, spell)
+    def perform_player_action(action, spell, ability)
       case action
-      when "A"
+      when "Attack"
         attack(player, enemy)
-      when "S"
+      when "Ability"
+        ability.resolve
+      when "Spell"
         spell.resolve
-      when "R"
+      when "Run"
         run_away(enemy)
       end
     end

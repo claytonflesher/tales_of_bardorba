@@ -16,8 +16,10 @@ module TalesOfBardorba
       puts "Your available at-will spells are #{at_will.join(", ")}"
       if player.encounter_spell_available?
         puts "Your available encounter spells are #{encounter.join(", ")}"
+        @spell_chosen = Input.new("Which spell would you like to use?", at_will + encounter).get_line
+      else
+        @spell_chosen = Input.new("Which spell would you like to use?", at_will).get_line
       end
-      @spell_chosen = Input.new("Which spell would you like to use?", at_will + encounter).get_line
     end
 
     def resolve
@@ -29,13 +31,9 @@ module TalesOfBardorba
     end
     
     def encounter
-      if player.encounter_spell_available?
-        case spell_chosen
-        when "Sap"
-          sap
-        end
-      else
-        puts "You're out of encounter spells.\nYou just wasted a turn."
+      case spell_chosen
+      when "Sap"
+        sap
       end
     end
 

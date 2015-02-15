@@ -16,7 +16,7 @@ module TalesOfBardorba
     end
 
     def dead?
-      hp < 0
+      hp < 1
     end
 
     def to_s

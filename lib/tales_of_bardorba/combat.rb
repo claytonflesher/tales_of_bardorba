@@ -1,4 +1,5 @@
 require_relative "input"
+require_relative "spell"
 
 module TalesOfBardorba
   class Combat
@@ -6,9 +7,10 @@ module TalesOfBardorba
       @player   = player
       @enemy    = enemy
       @ran_away = false
+      @spell    = spell
     end
 
-    attr_reader :player, :enemy, :ran_away
+    attr_reader :player, :enemy, :ran_away, :spell
 
     def resolve
       player.reset_encounter_spells
@@ -36,20 +38,21 @@ module TalesOfBardorba
 
     def get_player_action
       response = Input.new("[A]ttack\n[S]pell\n[R]un\n?", %w[A S R]).get_char
-      spell_name = nil
+      spell = nil
       if response == "S"
-        spell_name = spell(player)
+        spell = Spell.new(player, enemy)
+        spell.choose
       end
-      return [response, spell_name]
+      return [response, spell]
     end
 
     
-    def perform_player_action(action, spell_name)
+    def perform_player_action(action, spell)
       case action
       when "A"
         attack(player, enemy)
       when "S"
-        resolve_spell(spell_name, player, enemy)
+        spell.resolve
       when "R"
         run_away(enemy)
       end
@@ -77,32 +80,6 @@ module TalesOfBardorba
     def hit?(attacker, target)
       attack = rand(1..(attacker.hit - target.defense))
       attack > 3
-    end
-
-    def spell(player)
-      at_will   = player.at_will_spells_list
-      encounter = player.encounter_spells_list
-      puts "Your available at-will spells are #{at_will.join(", ")}"
-      if player.encounter_spell_available?
-        puts "Your available encounter spells are #{encounter.join(", ")}"
-      end
-      Input.new("Which spell would you like to use?", at_will + encounter).get_line
-    end
-
-    def resolve_spell(spell, player, enemy)
-      case spell
-      when "Zap"
-        enemy.stunned_for = rand(1..3)
-        puts "The enemy is stunned for #{enemy.stunned_for} turn(s)."
-      when "Sap"
-        if player.encounter_spell_available?
-          enemy.defense -= 1
-          player.encounter_spells -= 1
-          puts "The enemy's defenses have been weakened."
-        else
-          puts "You're out of encounter spells.\nYou just wasted a turn."
-        end
-      end
     end
 
     def run_away(enemy)

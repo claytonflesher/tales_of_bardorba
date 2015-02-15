@@ -5,7 +5,7 @@ module TalesOfBardorba
     def initialize(player, enemy)
       @player       = player
       @enemy        = enemy
-      @ability_chosen = ability_chosen
+      @ability_chosen = nil
     end
 
     attr_reader :player, :enemy, :ability_chosen

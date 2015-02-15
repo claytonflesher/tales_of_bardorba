@@ -1,11 +1,11 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, hp = 100, hit = 10, defense = 2, encounter_spell = 1)
+    def initialize(name, hp = 100, hit = 10, defense = 2, encounter_spells_available = 1)
       @name     = name
       @hp       = hp
       @hit      = hit
       @defense  = defense
-      @encounter_spells_available = 1
+      @encounter_spells_available = encounter_spells_available
     end
   
     attr_accessor :hp, :encounter_spells_available 
@@ -29,6 +29,10 @@ module TalesOfBardorba
 
     def encounter_spells
       %w[Sap]
+    end
+
+    def reset_encounter_spells
+      encounter_spells_available = 1
     end
 
   end

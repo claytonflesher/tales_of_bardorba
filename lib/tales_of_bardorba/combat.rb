@@ -11,6 +11,7 @@ module TalesOfBardorba
     attr_reader :player, :enemy
 
     def resolve
+      player.reset_encounter_spells
       until player.dead? || enemy.dead? || @ran_away
         round
       end
@@ -19,7 +20,6 @@ module TalesOfBardorba
       elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
       end
-      player.encounter_spells_available = 1
     end
 
     def round

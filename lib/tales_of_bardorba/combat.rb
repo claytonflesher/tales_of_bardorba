@@ -8,11 +8,11 @@ module TalesOfBardorba
       @ran_away = false
     end
 
-    attr_reader :player, :enemy
+    attr_reader :player, :enemy, :ran_away
 
     def resolve
       player.reset_encounter_spells
-      until player.dead? || enemy.dead? || @ran_away
+      until player.dead? || enemy.dead? || ran_away?
         round
       end
       if player.dead?
@@ -99,6 +99,8 @@ module TalesOfBardorba
           enemy.defense -= 1
           player.encounter_spells -= 1
           puts "The enemy's defenses have been weakened."
+        else
+          puts "You're out of encounter spells.\nYou just wasted a turn."
         end
       end
     end
@@ -111,6 +113,10 @@ module TalesOfBardorba
       else
         puts "You failed to escape.\nCongratulations, you just wasted a turn."
       end
+    end
+
+    def ran_away?
+      ran_away
     end
   end
 end

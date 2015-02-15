@@ -13,13 +13,13 @@ module TalesOfBardorba
     def choose
       at_will   = player.at_will_spells_list
       encounter = player.encounter_spells_list
+      abilities_available = at_will
       puts "Your available at-will spells are #{at_will.join(", ")}"
       if player.encounter_spell_available?
         puts "Your available encounter spells are #{encounter.join(", ")}"
-        @spell_chosen = Input.new("Which spell would you like to use?", at_will + encounter).get_line
-      else
-        @spell_chosen = Input.new("Which spell would you like to use?", at_will).get_line
+        abilities_available += encounter
       end
+        @spell_chosen = Input.new("Which spell would you like to use?", abilities_available).get_line
     end
 
     def resolve

@@ -80,10 +80,10 @@ module TalesOfBardorba
     end
 
     def spell(player)
-      at_will   = player.at_will_spells
-      encounter = player.encounter_spells
+      at_will   = player.at_will_spells_list
+      encounter = player.encounter_spells_list
       puts "Your available at-will spells are #{at_will.join(", ")}"
-      if encounter_spell_available?
+      if player.encounter_spell_available?
         puts "Your available encounter spells are #{encounter.join(", ")}"
       end
       Input.new("Which spell would you like to use?", at_will + encounter).get_line
@@ -95,16 +95,12 @@ module TalesOfBardorba
         enemy.stunned_for = rand(1..3)
         puts "The enemy is stunned for #{enemy.stunned_for} turn(s)."
       when "Sap"
-        if encounter_spell_available?
+        if player.encounter_spell_available?
           enemy.defense -= 1
-          player.encounter_spells_available -= 1
+          player.encounter_spells -= 1
           puts "The enemy's defenses have been weakened."
         end
       end
-    end
-
-    def encounter_spell_available?
-      player.encounter_spells_available > 0
     end
 
     def run_away(enemy)

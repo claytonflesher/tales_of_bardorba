@@ -34,7 +34,6 @@ module TalesOfBardorba
 
     def explore_world
       puts "As you step out into the world, you have a newfound sense of purpose and vim."
-      sleep 2
       enemy = enemy_chooser.choose
       puts "Suddenly, you encounter #{enemy.name}!"
       Combat.new(player, enemy).resolve

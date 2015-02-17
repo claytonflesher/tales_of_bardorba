@@ -8,8 +8,8 @@ module TalesOfBardorba
       @player   = player
       @enemy    = enemy
       @ran_away = false
-      @spell    = spell
-      @ability  = ability
+      @spell    = nil
+      @ability  = nil
     end
 
     attr_reader :player, :enemy, :ran_away, :answer, :spell, :ability
@@ -37,7 +37,7 @@ module TalesOfBardorba
       responses = get_player_action
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
-          perform_player_action(responses[0], responses[1], responses[2])
+          perform_player_action(*responses)
         elsif actor == enemy && !enemy.dead?
           perform_enemy_action
         end

@@ -1,12 +1,14 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, hp = 100, hit = 10, defense = 2, encounter_spells = 1, encounter_abilities = 1)
+    BASE_HIT = 10
+
+    def initialize(name, hp = 100, hit = BASE_HIT, defense = 2, encounter_spells = 1, encounter_abilities = 1)
       @name                 = name
       @hp                   = hp
       @hit                  = hit
       @defense              = defense
-      @encounter_spells     = encounter_spells
-      @encounter_abilities  = encounter_abilities
+      @encounter_spells     = 1
+      @encounter_abilities  = 1
     end
   
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
@@ -41,19 +43,19 @@ module TalesOfBardorba
     end
 
     def reset_hit
-      hit = 10
+      @hit = BASE_HIT
     end
 
     def reset_defense
-      defense = 2
+      @defense = 2
     end
 
     def reset_encounter_spells
-      encounter_spells = 1
+      @encounter_spells = 1
     end
 
     def reset_encounter_abilities
-      encounter_abilities = 1
+      @encounter_abilities = 1
     end
 
     def encounter_spell_available?

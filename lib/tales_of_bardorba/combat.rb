@@ -15,7 +15,6 @@ module TalesOfBardorba
     attr_reader :player, :enemy, :ran_away, :answer, :spell, :ability
 
     def resolve
-      reset_player_stats
       until player.dead? || enemy.dead? || ran_away?
         round
       end
@@ -24,13 +23,7 @@ module TalesOfBardorba
       elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
       end
-    end
-
-    def reset_player_stats
-      player.reset_hit
-      player.reset_defense
-      player.reset_encounter_spells
-      player.reset_encounter_abilities
+      player.reset_stats
     end
 
     def round

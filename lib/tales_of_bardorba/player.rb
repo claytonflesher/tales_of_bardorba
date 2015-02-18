@@ -1,6 +1,7 @@
 module TalesOfBardorba
   class Player
-    BASE_HIT = 10
+    BASE_HIT      = 10
+    BASE_DEFENSE  = 2
 
     def initialize(name, hp = 100, hit = BASE_HIT, defense = 2, encounter_spells = 1, encounter_abilities = 1)
       @name                 = name
@@ -42,20 +43,11 @@ module TalesOfBardorba
       %W[Focus]
     end
 
-    def reset_hit
-      @hit = BASE_HIT
-    end
-
-    def reset_defense
-      @defense = 2
-    end
-
-    def reset_encounter_spells
-      @encounter_spells = 1
-    end
-
-    def reset_encounter_abilities
-      @encounter_abilities = 1
+    def reset_stats
+      @hit                  = BASE_HIT
+      @defense              = BASE_DEFENSE
+      @encounter_spells     = 1
+      @encounter_abilities  = 1
     end
 
     def encounter_spell_available?

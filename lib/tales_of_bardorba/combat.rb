@@ -1,4 +1,4 @@
-require_relative "input"
+require_relative "combat_input"
 require_relative "spell"
 require_relative "ability"
 
@@ -34,7 +34,7 @@ module TalesOfBardorba
     end
 
     def round
-      responses = get_player_action
+      responses = CombatInput.new(player).get_player_input
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
           perform_player_action(*responses)
@@ -45,33 +45,15 @@ module TalesOfBardorba
       puts "#{player.name}'s current hp is #{player.hp}\n\n"
     end
 
-    def get_player_action
-      response = Input.new("Attack\nAbility\nSpell\nRun\n?", %w[Attack Ability Spell Run]).get_line
-      additional_player_selections(response, player, enemy)
-    end
-
-    def additional_player_selections(answer, player, enemy)
-      ability = nil
-      spell   = nil
-      if answer == "Ability"
-        ability = Ability.new(player, enemy)
-        ability.choose
-      elsif answer == "Spell"
-        spell = Spell.new(player, enemy)
-        spell.choose
-      end
-      return [answer, spell, ability]
-    end
-    
     def perform_player_action(action, spell, ability)
       case action
-      when "Attack"
+      when "A"
         attack(player, enemy)
-      when "Ability"
-        ability.resolve
-      when "Spell"
-        spell.resolve
-      when "Run"
+      when "B"
+        Ability.new(player, enemy, ability).resolve
+      when "S"
+        Spell.new(player, enemy, spell).resolve
+      when "R"
         run_away(enemy)
       end
     end

@@ -2,25 +2,13 @@ require_relative "input"
 
 module TalesOfBardorba
   class Spell
-    def initialize(player, enemy)
+    def initialize(player, enemy, spell_chosen)
       @player       = player
       @enemy        = enemy
-      @spell_chosen = nil
+      @spell_chosen = spell_chosen
     end
 
     attr_reader :player, :enemy, :spell_chosen
-
-    def choose
-      at_will   = player.at_will_spells_list
-      encounter = player.encounter_spells_list
-      abilities_available = at_will
-      puts "Your available at-will spells are #{at_will.join(", ")}"
-      if player.encounter_spell_available?
-        puts "Your available encounter spells are #{encounter.join(", ")}"
-        abilities_available += encounter
-      end
-        @spell_chosen = Input.new("Which spell would you like to use?", abilities_available).get_line
-    end
 
     def resolve
       if player.at_will_spells_list.include?(spell_chosen)

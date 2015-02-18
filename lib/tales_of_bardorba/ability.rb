@@ -2,25 +2,13 @@ require_relative "input"
 
 module TalesOfBardorba
   class Ability
-    def initialize(player, enemy)
-      @player       = player
-      @enemy        = enemy
-      @ability_chosen = nil
+    def initialize(player, enemy, ability_chosen)
+      @player         = player
+      @enemy          = enemy
+      @ability_chosen = ability_chosen
     end
 
     attr_reader :player, :enemy, :ability_chosen
-
-    def choose
-      at_will   = player.at_will_abilities_list
-      encounter = player.encounter_abilities_list
-      abilities_available = at_will
-      puts "Your available at-will abilities are #{at_will.join(", ")}"
-      if player.encounter_ability_available?
-        puts "Your available encounter abilties are #{encounter.join(", ")}"
-        abilities_available += encounter
-      end
-      @ability_chosen = Input.new("Which ability would you like to use?", abilities_available).get_line
-    end
 
     def resolve
       if player.at_will_abilities_list.include?(ability_chosen)

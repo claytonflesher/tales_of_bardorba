@@ -32,6 +32,10 @@ module TalesOfBardorba
       @in_village = true
       puts "You find yourself in a rustic village in the middle of a strange but sexy world."
       response = Input.new("What would you like to do?\n\n[E]xplore the world outside the village.\n[R]est\n[S]ave your game.\n[Q]uit with your tail between your legs.\n?", %w[E R S Q]).get_char
+      village_action(response)
+    end
+
+    def village_action(response)
       case response
       when "E"
         explore_world
@@ -43,6 +47,7 @@ module TalesOfBardorba
         quit
       end
     end
+
 
     def explore_world
       @in_village = false

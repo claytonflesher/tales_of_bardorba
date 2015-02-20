@@ -3,8 +3,9 @@ module TalesOfBardorba
     BASE_HIT      = 10
     BASE_DEFENSE  = 2
 
-    def initialize(name, hp = 100, hit = BASE_HIT, defense = 2, encounter_spells = 1, encounter_abilities = 1)
+    def initialize(name, job, hp = 100, hit = BASE_HIT, defense = 2, encounter_spells = 1, encounter_abilities = 1)
       @name                 = name
+      @job                  = job
       @hp                   = hp
       @hit                  = hit
       @defense              = defense
@@ -13,7 +14,7 @@ module TalesOfBardorba
     end
   
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
-    attr_reader :defense, :name
+    attr_reader :defense, :name, :job
 
     def damage
       rand(1..6)
@@ -24,7 +25,7 @@ module TalesOfBardorba
     end
 
     def to_s
-      [name, hp, hit, defense].join("|")
+      [name, job, hp, hit, defense].join("|")
     end
 
     def at_will_spells_list

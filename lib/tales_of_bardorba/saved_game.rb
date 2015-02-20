@@ -11,10 +11,11 @@ module TalesOfBardorba
     def load
       fields  = File.read(FILENAME).strip.split("|")
       name    = fields[0]
-      hp      = fields[1].to_i
-      hit     = fields[2].to_i
-      defense = fields[3].to_i
-      Player.new(name, hp, hit, defense)
+      job     = fields[1]
+      hp      = fields[2].to_i
+      hit     = fields[3].to_i
+      defense = fields[4].to_i
+      Player.new(name, job, hp, hit, defense)
     end
   end
 end

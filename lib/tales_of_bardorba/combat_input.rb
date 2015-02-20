@@ -4,20 +4,20 @@ module TalesOfBardorba
   class CombatInput
     def initialize(player)
       @player       = player
+      @action       = nil
+      @ability      = nil
+      @spell        = nil
     end
     
-    attr_reader :player
+    attr_reader :player, :action, :ability, :spell
 
-    def get_player_input
-      spell   = nil
-      ability = nil
-      answer = Input.new("[A]ttack\nA[B]ility\n[S]pell\n[R]un\n?", %w[A B S R]).get_char
-      if answer == "B"
-        ability = choose_ability
-      elsif answer == "S"
-        spell = choose_spell
+    def query_user
+      @action = Input.new("[A]ttack\nA[B]ility\n[S]pell\n[R]un\n?", %w[A B S R]).get_char
+      if action == "B"
+        @ability = choose_ability
+      elsif action == "S"
+        @spell = choose_spell
       end
-      return [answer, spell, ability]
     end
 
     def choose_ability

@@ -8,11 +8,9 @@ module TalesOfBardorba
       @player   = player
       @enemy    = enemy
       @ran_away = false
-      @spell    = nil
-      @ability  = nil
     end
 
-    attr_reader :player, :enemy, :ran_away, :answer, :spell, :ability
+    attr_reader :player, :enemy, :ran_away
 
     def resolve
       until player.dead? || enemy.dead? || ran_away?
@@ -27,10 +25,11 @@ module TalesOfBardorba
     end
 
     def round
-      responses = CombatInput.new(player).get_player_input
+      input = CombatInput.new(player)
+      input.query_user
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
-          perform_player_action(*responses)
+          perform_player_action(input)
         elsif actor == enemy && !enemy.dead?
           perform_enemy_action
         end
@@ -38,14 +37,14 @@ module TalesOfBardorba
       puts "#{player.name}'s current hp is #{player.hp}\n\n"
     end
 
-    def perform_player_action(action, spell, ability)
-      case action
+    def perform_player_action(input)
+      case input.action
       when "A"
         attack(player, enemy)
       when "B"
-        Ability.new(player, enemy, ability).resolve
+        Ability.new(player, enemy, input.ability).resolve
       when "S"
-        Spell.new(player, enemy, spell).resolve
+        Spell.new(player, enemy, input.spell).resolve
       when "R"
         run_away(enemy)
       end

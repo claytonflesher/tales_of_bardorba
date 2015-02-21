@@ -1,23 +1,35 @@
+require_relative "job"
+
 module TalesOfBardorba
   class Player
-    BASE_HIT      = 10
-    BASE_DEFENSE  = 2
-
-    def initialize(name, job, hp = 100, hit = BASE_HIT, defense = 2, encounter_spells = 1, encounter_abilities = 1)
+    def initialize(name, profession, hpmax = nil, hp = nil, hit = nil, defense = nil, magic = nil, feats = nil)
       @name                 = name
-      @job                  = job
-      @hp                   = hp
-      @hit                  = hit
-      @defense              = defense
+      @profession           = profession
+      @hpmax                = nil
+      @hp                   = nil
+      @hit                  = nil
+      @defense              = nil
+      @magic                = nil
+      @feats                = nil
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end
   
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
-    attr_reader :defense, :name, :job
+    attr_reader :name, :profession, :magic, :feats
+
+    def set_stats
+      job      = Job.new(profession)
+      @hpmax   = job.hpmax
+      @hp      = @hpmax
+      @hit     = job.hit
+      @defense = job.defense
+      @magic   = job.magic
+      @feats   = job.feats
+    end
 
     def damage
-      rand(1..6)
+      rand(1..6) + (@hit - enemy.defense)
     end
 
     def dead?
@@ -25,7 +37,7 @@ module TalesOfBardorba
     end
 
     def to_s
-      [name, job, hp, hit, defense].join("|")
+      [name, profession, hpmax, hp, hit, defense, magic, feats].join("|")
     end
 
     def at_will_spells_list
@@ -45,8 +57,8 @@ module TalesOfBardorba
     end
 
     def reset_stats
-      @hit                  = BASE_HIT
-      @defense              = BASE_DEFENSE
+      @hit                  = 
+      @defense              = 
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end

@@ -17,7 +17,7 @@ module TalesOfBardorba
     attr_reader :name, :profession, :magic, :feats, :hpmax
 
     def damage(enemy)
-      rand(1..6)
+      rand(1..6) + (@hit - enemy.defense)
     end
 
     def dead?
@@ -45,8 +45,9 @@ module TalesOfBardorba
     end
 
     def reset_stats
-      @hit                  = 
-      @defense              = 
+      job                   = Job.new(profession)
+      @hit                  = job.hit
+      @defense              = job.defense
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end

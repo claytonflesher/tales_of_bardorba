@@ -9,15 +9,15 @@ module TalesOfBardorba
     end
 
     def load
-      fields  = File.read(FILENAME).strip.split("|")
-      name    = fields[0]
-      job     = fields[1]
-      hpmax   = fields[2]
-      hp      = fields[3].to_i
-      hit     = fields[4].to_i
-      defense = fields[5].to_i
-      magic   = fields[6]
-      feats   = fields[7]
+      fields      = File.read(FILENAME).strip.split("|")
+      name        = fields[0]
+      profession  = fields[1]
+      hpmax       = fields[2]
+      hit         = fields[3].to_i
+      defense     = fields[4].to_i
+      magic       = fields[5]
+      feats       = fields[6]
+      hp          = fields[7].to_i
       Player.new(name, profession, hpmax, hp, hit, defense, magic, feats)
     end
   end

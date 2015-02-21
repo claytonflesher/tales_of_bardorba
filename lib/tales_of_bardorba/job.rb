@@ -33,11 +33,11 @@ module TalesOfBardorba
     def defense
       case job
       when "squire"
-        defense = 10
-      when "streetrat"
-        defense = 8
-      when "magician"
         defense = 5
+      when "streetrat"
+        defense = 4
+      when "magician"
+        defense = 3
       end
       defense
     end

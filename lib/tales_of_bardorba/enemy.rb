@@ -11,8 +11,8 @@ module TalesOfBardorba
     attr_accessor :hp, :defense, :stunned_for
     attr_reader :hit, :name
     
-    def damage
-      rand(1..6)
+    def damage(player)
+      rand(1..6) + (@hit - player.defense)
     end
     
     def dead?

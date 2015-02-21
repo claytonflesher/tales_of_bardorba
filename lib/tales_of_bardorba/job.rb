@@ -1,4 +1,4 @@
-module TalesofBardorba
+module TalesOfBardorba
   class Job
     def initialize(job)
       @job  = job
@@ -15,7 +15,7 @@ module TalesofBardorba
       when "magician"
         hpmax = 80
       end
-      hpmax
+      hpmax.to_i
     end
 
     def hit
@@ -27,7 +27,7 @@ module TalesofBardorba
       when "magician"
         hit = 10
       end
-      hit
+      hit.to_i
     end
 
     def defense
@@ -39,7 +39,7 @@ module TalesofBardorba
       when "magician"
         defense = 5
       end
-      defense
+      defense.to_i
     end
 
     def magic

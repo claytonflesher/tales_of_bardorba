@@ -1,6 +1,6 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, profession, hpmax, hit, defense, magic, feats, hp = nil)
+    def initialize(name, profession, hpmax, hit, defense, magic, feats, hp = 100)
       @name                 = name
       @profession           = profession
       @hpmax                = hpmax

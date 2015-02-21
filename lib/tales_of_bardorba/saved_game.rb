@@ -13,12 +13,12 @@ module TalesOfBardorba
       name        = fields[0]
       profession  = fields[1]
       hpmax       = fields[2]
-      hit         = fields[3].to_i
-      defense     = fields[4].to_i
+      hit         = fields[3]
+      defense     = fields[4]
       magic       = fields[5]
       feats       = fields[6]
-      hp          = fields[7].to_i
-      Player.new(name, profession, hpmax, hp, hit, defense, magic, feats)
+      hp          = fields[7]
+      Player.new(name, profession, hpmax.to_i, hit.to_i, defense.to_i, magic, feats, hp.to_i)
     end
   end
 end

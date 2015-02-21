@@ -79,7 +79,7 @@ module TalesOfBardorba
     end
 
     def heal_player
-      player.hp = 100
+      player.hp = player.hpmax
       puts "After a short period of time, you feel reinvigorated. You now have #{player.hp} HP."
     end
 

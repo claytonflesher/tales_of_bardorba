@@ -2,15 +2,15 @@ require_relative "job"
 
 module TalesOfBardorba
   class Player
-    def initialize(name, profession, hpmax = nil, hp = nil, hit = nil, defense = nil, magic = nil, feats = nil)
+    def initialize(name, profession, hpmax, hit, defense, magic, feats, hp = nil)
       @name                 = name
       @profession           = profession
-      @hpmax                = nil
-      @hp                   = nil
-      @hit                  = nil
-      @defense              = nil
-      @magic                = nil
-      @feats                = nil
+      @hpmax                = hpmax
+      @hp                   = hpmax
+      @hit                  = hit
+      @defense              = defense
+      @magic                = magic
+      @feats                = feats
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end
@@ -37,7 +37,7 @@ module TalesOfBardorba
     end
 
     def to_s
-      [name, profession, hpmax, hp, hit, defense, magic, feats].join("|")
+      [name, profession, hpmax, hit, defense, magic, feats, hp].join("|")
     end
 
     def at_will_spells_list

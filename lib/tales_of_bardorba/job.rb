@@ -15,7 +15,7 @@ module TalesOfBardorba
       when "magician"
         hpmax = 80
       end
-      hpmax.to_i
+      hpmax
     end
 
     def hit
@@ -27,7 +27,7 @@ module TalesOfBardorba
       when "magician"
         hit = 10
       end
-      hit.to_i
+      hit
     end
 
     def defense
@@ -39,7 +39,7 @@ module TalesOfBardorba
       when "magician"
         defense = 5
       end
-      defense.to_i
+      defense
     end
 
     def magic

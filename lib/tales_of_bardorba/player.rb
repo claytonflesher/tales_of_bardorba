@@ -1,12 +1,10 @@
-require_relative "job"
-
 module TalesOfBardorba
   class Player
     def initialize(name, profession, hpmax, hit, defense, magic, feats, hp = nil)
       @name                 = name
       @profession           = profession
       @hpmax                = hpmax
-      @hp                   = hpmax
+      @hp                   = @hpmax
       @hit                  = hit
       @defense              = defense
       @magic                = magic
@@ -16,20 +14,10 @@ module TalesOfBardorba
     end
   
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
-    attr_reader :name, :profession, :magic, :feats
+    attr_reader :name, :profession, :magic, :feats, :hpmax
 
-    def set_stats
-      job      = Job.new(profession)
-      @hpmax   = job.hpmax
-      @hp      = @hpmax
-      @hit     = job.hit
-      @defense = job.defense
-      @magic   = job.magic
-      @feats   = job.feats
-    end
-
-    def damage
-      rand(1..6) + (@hit - enemy.defense)
+    def damage(enemy)
+      rand(1..6)
     end
 
     def dead?

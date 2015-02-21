@@ -61,7 +61,7 @@ module TalesOfBardorba
 
     def attack(attacker, target)
       if hit?(attacker, target)
-        damage = attacker.damage
+        damage = attacker.damage(target)
         target.hp -= damage
         puts "#{attacker.name} hit #{target.name} for #{damage} hp."
       else

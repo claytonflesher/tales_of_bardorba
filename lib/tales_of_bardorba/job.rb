@@ -13,7 +13,8 @@ module TalesOfBardorba
       @hp         = nil
     end
 
-    attr_reader :job, :hpmax, :hit, :defense, :magic, :feats
+    attr_reader :job
+    attr_accessor :hpmax, :hit, :defense, :magic, :feats, :hp
 
     def load_file
       File.open(FILENAME, "r") do |f|
@@ -27,27 +28,21 @@ module TalesOfBardorba
 
     def set_stats
       load_file
-      @hpmax    = @fields[1]
-      @hit      = @fields[2]
-      @defense  = @fields[3]
-      set_magic
-      set_feats
+      @hpmax    = @fields[1].to_i
+      @hit      = @fields[2].to_i
+      @defense  = @fields[3].to_i
+      @magic    = @magic == "true"
+      @feats    = @feats == "true"
       @hp       = @hpmax
-      [@hpmax.to_i, @hit.to_i, @defense.to_i, @magic, @feats, @hp.to_i]
     end
 
-    def set_magic
-      magic = @fields[4]
-      if magic == "true"
-        @magic = true
-      end
-    end
-
-    def set_feats
-      feats = @fields[5]
-      if feats == "true"
-        @feats = true
-      end
+    def match_stats(hpmax, hit, defense, magic, feats, hp)
+      @hpmax    = hpmax
+      @hit      = hit
+      @defense  = defense
+      @magic    = magic
+      @feats    = feats
+      @hp       = hp
     end
   end
 end

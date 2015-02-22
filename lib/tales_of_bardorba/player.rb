@@ -1,21 +1,26 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, profession, stats)
-      @stats                = stats
+    def initialize(name, job)
+      starting_stats(job)
+      @default_hit          = job.hit
+      @default_defense      = job.defense
       @name                 = name
-      @profession           = profession
-      @hpmax                = stats[0]
-      @hit                  = stats[1]
-      @defense              = stats[2]
-      @magic                = stats[3]
-      @feats                = stats[4]
-      @hp                   = stats[5]
+      @profession           = job.job
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end
   
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
     attr_reader :name, :profession, :magic, :feats, :hpmax
+
+    def starting_stats(job)
+      @hpmax   = job.hpmax
+      @hit     = job.hit
+      @defense = job.defense
+      @magic   = job.magic
+      @feats   = job.feats
+      @hp      = job.hp
+    end
 
     def damage(enemy)
       rand(1..6) + (@hit - enemy.defense)
@@ -46,9 +51,8 @@ module TalesOfBardorba
     end
 
     def reset_stats
-      job                   = Job.new(profession)
-      @hit                  = job.hit
-      @defense              = job.defense
+      @hit                  = @default_hit
+      @defense              = @default_defense
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end

@@ -9,42 +9,22 @@ module TalesOfBardorba
     end
 
     def load
+      pull_player_data
+      job = Job.new(@profession)
+      job.match_stats(@hpmax, @hit, @defense, @magic, @feats, @hp) #I'm open to suggestions here.
+      Player.new(@name, job)
+    end
+
+    def pull_player_data
       fields      = File.read(FILENAME).strip.split("|")
-      name        = fields[0]
-      profession  = fields[1]
-      hpmax       = fields[2]
-      hit         = fields[3]
-      defense     = fields[4]
-      magic       = fields[5]
-      feats       = fields[6]
-      hp          = fields[7]
-      organize_stats(name, profession, hpmax, hit, defense, magic, feats, hp)
-    end
-
-    def organize_stats(name, profession, hpmax, hit, defense, magic, feats, hp)
-      magic = set_magic(magic)
-      feats = set_feats(feats)
-      stats = [hpmax.to_i, hit.to_i, defense.to_i, magic, feats, hp.to_i]
-      p stats
-      Player.new(name, profession, stats)
-    end
-
-    def set_magic(magic)
-      if magic == "true"
-        magic = true
-      else
-        magic = false
-      end
-      return magic
-    end
-
-    def set_feats(feats)
-      if feats == "true"
-        feats = true
-      else 
-        feats = false
-      end
-      return feats
+      @name        = fields[0]
+      @profession  = fields[1]
+      @hpmax       = fields[2].to_i
+      @hit         = fields[3].to_i
+      @defense     = fields[4].to_i
+      @magic       = fields[5] == "true"
+      @feats       = fields[6] == "true"
+      @hp          = fields[7].to_i
     end
   end
 end

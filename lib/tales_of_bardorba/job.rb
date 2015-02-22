@@ -10,6 +10,7 @@ module TalesOfBardorba
       @defense    = nil
       @magic      = false
       @feats      = false
+      @hp         = nil
     end
 
     attr_reader :job, :hpmax, :hit, :defense, :magic, :feats
@@ -25,11 +26,14 @@ module TalesOfBardorba
     end
 
     def set_stats
+      load_file
       @hpmax    = @fields[1]
       @hit      = @fields[2]
       @defense  = @fields[3]
       set_magic
       set_feats
+      @hp       = @hpmax
+      [@hpmax.to_i, @hit.to_i, @defense.to_i, @magic, @feats, @hp.to_i]
     end
 
     def set_magic

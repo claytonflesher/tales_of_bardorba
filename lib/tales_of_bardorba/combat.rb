@@ -71,7 +71,6 @@ module TalesOfBardorba
 
     def hit?(attacker, target)
       attack = rand(1..(attacker.hit - target.defense))
-      puts attack
       attack > 3
     end
 

@@ -1,68 +1,50 @@
 module TalesOfBardorba
   class Job
+    FILENAME = File.join(__dir__, "../../data/jobstats.txt")
+
     def initialize(job)
-      @job  = job
+      @job        = job
+      @fields     = Array.new
+      @hpmax      = nil
+      @hit        = nil
+      @defense    = nil
+      @magic      = false
+      @feats      = false
     end
 
-    attr_reader :job
+    attr_reader :job, :hpmax, :hit, :defense, :magic, :feats
 
-    def hpmax
-      case job
-      when "squire"
-        hpmax = 100
-      when "streetrat"
-        hpmax = 85
-      when "magician"
-        hpmax = 80
-      end
-      hpmax
-    end
-
-    def hit
-      case job
-      when "squire"
-        hit = 20
-      when "streetrat"
-        hit = 15
-      when "magician"
-        hit = 10
-      end
-      hit
-    end
-
-    def defense
-      case job
-      when "squire"
-        defense = 5
-      when "streetrat"
-        defense = 4
-      when "magician"
-        defense = 3
-      end
-      defense
-    end
-
-    def magic
-      case job
-      when "squire"
-        magic = false
-      when "streetrat"
-        magic = false
-      when "magician"
-        magic = true
+    def load_file
+      File.open(FILENAME, "r") do |f|
+        while (line = f.gets) 
+          if line.include?(job)
+            @fields = line.strip.split("|")
+          end
+        end
       end
     end
 
-    def feats
-      case job
-      when "squire"
-        feats = false
-      when "streetrat"
-        feats = true
-      when "magician"
-        feats = false
+    def set_stats
+      @hpmax    = @fields[1]
+      @hit      = @fields[2]
+      @defense  = @fields[3]
+      set_magic
+      set_feats
+    end
+
+    def set_magic
+      magic = @fields[4]
+      if magic == "true"
+        @magic = true
       end
-      feats
+    end
+
+    def set_feats
+      feats = @fields[5]
+      if feats == "true"
+        @feats = true
+      end
     end
   end
 end
+

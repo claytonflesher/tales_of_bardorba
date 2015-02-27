@@ -32,7 +32,7 @@ module TalesOfBardorba
 
     def set_stats
       load_file
-      @hpmax    = @stats["hpmax"]
+      @hpmax    = @stats["hpmax"].to_i
       @hit      = @stats["hit"].to_i
       @defense  = @stats["defense"].to_i
       @magic    = @stats["magic"] == "true"

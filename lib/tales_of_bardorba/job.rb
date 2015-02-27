@@ -23,7 +23,6 @@ module TalesOfBardorba
             5.times do
               item = f.gets.strip.split("=")
               @stats[item[0]] = item[1]
-              p @stats
             end
           end
         end

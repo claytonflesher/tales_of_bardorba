@@ -1,19 +1,19 @@
 squire
-maxhp=100
+hpmax=100
 hit=20
 defense=5
 magic=false
 feats=false
 
 streetrat
-maxhp=85
+hpmax=85
 hit=15
 defense=4
 magic=false
 feats=true
 
 magician
-maxhp=80
+hpmax=80
 hit=10
 defense=3
 magic=true

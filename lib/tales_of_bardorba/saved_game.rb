@@ -4,7 +4,9 @@ module TalesOfBardorba
 
     def create(player)
       File.open(FILENAME, "w") do |f|
-        f.puts player
+        player.stats.each do |name, value|
+          f.puts "#{name}=#{value}"
+        end
       end
     end
 

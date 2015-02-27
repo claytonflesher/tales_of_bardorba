@@ -22,16 +22,23 @@ module TalesOfBardorba
       @hp      = job.hp
     end
 
+    def stats
+      stats = Hash.new
+      stats["hpmax"]    = @hpmax
+      stats["hit"]      = @hit
+      stats["defense"]  = @defense
+      stats["magic"]    = @magic
+      stats["feats"]    = @feats
+      stats["hp"]       = @hp
+      return stats
+    end
+
     def damage(enemy)
       rand(1..6) + (@hit - enemy.defense)
     end
 
     def dead?
       hp < 1
-    end
-
-    def to_s
-      [name, profession, hpmax, hit, defense, magic, feats, hp].join("|")
     end
 
     def at_will_spells_list

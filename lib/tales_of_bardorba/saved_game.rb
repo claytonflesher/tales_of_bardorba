@@ -9,22 +9,31 @@ module TalesOfBardorba
     end
 
     def load
-      pull_player_data
+      stats = pull_player_data
       job = Job.new(@profession)
-      job.match_stats(@hpmax, @hit, @defense, @magic, @feats, @hp) #I'm open to suggestions here.
+      job.match_stats(stats)
       Player.new(@name, job)
     end
 
     def pull_player_data
-      fields      = File.read(FILENAME).strip.split("|")
-      @name        = fields[0]
-      @profession  = fields[1]
-      @hpmax       = fields[2].to_i
-      @hit         = fields[3].to_i
-      @defense     = fields[4].to_i
-      @magic       = fields[5] == "true"
-      @feats       = fields[6] == "true"
-      @hp          = fields[7].to_i
+      stats = Hash.new
+      File.open(FILENAME, "r") do |f|
+        while (line = f.gets)
+          data = line.strip.split("=")
+          stats[data[0]] = data[1]
+        end
+      end
+      format_stats(stats)
+    end
+    
+    def format_stats(stats)
+      stats["hpmax"] = stats["hpmax"].to_i
+      stats["hit"] = stats["hit"].to_i
+      stats["defense"] = stats["defense"].to_i
+      stats["magic"] = stats["magic"] == "true"
+      stats["feats"] = stats["feats"] == "true"
+      stats["hp"] = stats["hp"].to_i
+      return stats
     end
   end
 end

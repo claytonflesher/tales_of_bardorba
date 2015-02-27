@@ -4,7 +4,7 @@ module TalesOfBardorba
 
     def initialize(job)
       @job        = job
-      @fields     = Array.new
+      @stats      = Hash.new
       @hpmax      = nil
       @hit        = nil
       @defense    = nil
@@ -13,14 +13,18 @@ module TalesOfBardorba
       @hp         = nil
     end
 
-    attr_reader :job
+    attr_reader :job, :stats
     attr_accessor :hpmax, :hit, :defense, :magic, :feats, :hp
 
     def load_file
       File.open(FILENAME, "r") do |f|
         while (line = f.gets) 
           if line.include?(job)
-            @fields = line.strip.split("|")
+            5.times do
+              item = f.gets.strip.split("=")
+              @stats[item[0]] = item[1]
+              p @stats
+            end
           end
         end
       end
@@ -28,21 +32,21 @@ module TalesOfBardorba
 
     def set_stats
       load_file
-      @hpmax    = @fields[1].to_i
-      @hit      = @fields[2].to_i
-      @defense  = @fields[3].to_i
-      @magic    = @magic == "true"
-      @feats    = @feats == "true"
+      @hpmax    = @stats["hpmax"]
+      @hit      = @stats["hit"].to_i
+      @defense  = @stats["defense"].to_i
+      @magic    = @stats["magic"] == "true"
+      @feats    = @stats["feats"] == "true"
       @hp       = @hpmax
     end
 
-    def match_stats(hpmax, hit, defense, magic, feats, hp)
-      @hpmax    = hpmax
-      @hit      = hit
-      @defense  = defense
-      @magic    = magic
-      @feats    = feats
-      @hp       = hp
+    def match_stats(stats)
+      @hpmax    = stats["hpmax"]
+      @hit      = stats["hit"]
+      @defense  = stats["defense"]
+      @magic    = stats["magic"]
+      @feats    = stats["feats"]
+      @hp       = stats["hp"]
     end
   end
 end

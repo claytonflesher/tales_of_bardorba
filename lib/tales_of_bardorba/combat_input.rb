@@ -12,11 +12,23 @@ module TalesOfBardorba
     attr_reader :player, :action, :ability, :spell
 
     def query_user
-      @action = Input.new("[A]ttack\nA[B]ility\n[S]pell\n[R]un\n?", %w[A B S R]).get_char
-      if action == "B"
+      query_parameters
+      if @action == "B"
         @ability = choose_ability
-      elsif action == "S"
+      elsif @action == "S"
         @spell = choose_spell
+      end
+    end
+
+    def query_parameters
+      if @player.magic == true && @player.feats == true
+        @action = Input.new("[A]ttack\nA[B]ility\n[S]pell\n[R]un\n?", %w[A B S R]).get_char
+      elsif @player.magic == true && @player.feats == false
+        @action = Input.new("[A]ttack\n[S]pell\n[R]un\n?", %w[A S R]).get_char
+      elsif @player.magic == false && @player.feats == true
+        @action = Input.new("[A]ttack\nA[B]ility\n[R]un\n?", %w[A B R]).get_char
+      elsif @player.magic == false && @player.feats == false
+        @action = Input.new("[A]ttack\n[R]un\n?", %w[A R]).get_char
       end
     end
 

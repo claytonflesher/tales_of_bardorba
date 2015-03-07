@@ -12,8 +12,10 @@ module TalesOfBardorba
 
     def load
       stats = pull_player_data
+      p stats
       job = Job.new(stats["profession"])
-      job.match_stats(stats)
+      job.stats = stats
+      job.assign_stats
       Player.new(stats["name"], job)
     end
 
@@ -22,19 +24,20 @@ module TalesOfBardorba
       File.open(FILENAME, "r") do |f|
         while (line = f.gets)
           data = line.strip.split("=")
-          stats[data[0]] = data[1]
+          stats = format_stats(data, stats)
         end
       end
-      format_stats(stats)
+      return stats
     end
     
-    def format_stats(stats)
-      stats["hpmax"] = stats["hpmax"].to_i
-      stats["hit"] = stats["hit"].to_i
-      stats["defense"] = stats["defense"].to_i
-      stats["magic"] = stats["magic"] == "true"
-      stats["feats"] = stats["feats"] == "true"
-      stats["hp"] = stats["hp"].to_i
+    def format_stats(data, stats)
+      if data[1] =~ /[0-9]$/
+        stats[data[0]] = data[1].to_i
+      elsif data[1] =~ /(true|false)$/
+        stats[data[0]] = data[1] == "true"
+      else
+        stats[data[0]] = data[1]
+      end
       return stats
     end
   end

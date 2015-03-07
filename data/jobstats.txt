@@ -4,6 +4,7 @@ hit=20
 defense=5
 magic=false
 feats=false
+hp=100
 
 streetrat
 hpmax=85
@@ -11,6 +12,7 @@ hit=15
 defense=4
 magic=false
 feats=true
+hp=85
 
 magician
 hpmax=80
@@ -18,3 +20,5 @@ hit=10
 defense=3
 magic=true
 feats=false
+hp=80
+

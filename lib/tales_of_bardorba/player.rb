@@ -22,7 +22,7 @@ module TalesOfBardorba
       @hp      = job.hp
     end
 
-    def stats
+    def end_stats
       stats = Hash.new
       stats["name"]       = @name
       stats["profession"] = @profession

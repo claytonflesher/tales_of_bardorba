@@ -12,9 +12,9 @@ module TalesOfBardorba
 
     def load
       stats = pull_player_data
-      job = Job.new(@profession)
+      job = Job.new(stats["profession"])
       job.match_stats(stats)
-      Player.new(@name, job)
+      Player.new(stats["name"], job)
     end
 
     def pull_player_data

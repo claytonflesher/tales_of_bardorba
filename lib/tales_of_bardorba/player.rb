@@ -24,12 +24,14 @@ module TalesOfBardorba
 
     def stats
       stats = Hash.new
-      stats["hpmax"]    = @hpmax
-      stats["hit"]      = @hit
-      stats["defense"]  = @defense
-      stats["magic"]    = @magic
-      stats["feats"]    = @feats
-      stats["hp"]       = @hp
+      stats["name"]       = @name
+      stats["profession"] = @profession
+      stats["hpmax"]      = @hpmax
+      stats["hit"]        = @hit
+      stats["defense"]    = @defense
+      stats["magic"]      = @magic
+      stats["feats"]      = @feats
+      stats["hp"]         = @hp
       return stats
     end
 

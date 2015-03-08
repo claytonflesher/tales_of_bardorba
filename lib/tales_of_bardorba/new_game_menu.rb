@@ -9,9 +9,10 @@ module TalesOfBardorba
       name       = Input.new("What would you like to name your character?").get_line
       profession = Input.new("What class would you like #{name} to be?\nsquire\nstreetrat\nmagician\n?", %w[squire streetrat magician]).get_line
       job = Job.new(profession)
-      job.load_file
-      job.assign_stats
-      Game.new(Player.new(name, job)).play
+      job.load
+      player = Player.new(name)
+      player.assign_starting_stats(job)
+      Game.new(player).play
     end
   end
 end

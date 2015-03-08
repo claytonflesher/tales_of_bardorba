@@ -1,38 +1,21 @@
 module TalesOfBardorba
   class Player
-    def initialize(name, job)
-      starting_stats(job)
-      @default_hit          = job.hit
-      @default_defense      = job.defense
-      @name                 = name
-      @profession           = job.job
-      @encounter_spells     = 1
-      @encounter_abilities  = 1
+    def initialize(name = nil)
+      @name                = name
+      @encounter_spells    = 1
+      @encounter_abilities = 1
     end
-  
+
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
     attr_reader :name, :profession, :magic, :feats, :hpmax
 
-    def starting_stats(job)
-      @hpmax   = job.hpmax
-      @hit     = job.hit
-      @defense = job.defense
-      @magic   = job.magic
-      @feats   = job.feats
-      @hp      = job.hp
-    end
-
-    def end_stats
-      stats = Hash.new
-      stats["name"]       = @name
-      stats["profession"] = @profession
-      stats["hpmax"]      = @hpmax
-      stats["hit"]        = @hit
-      stats["defense"]    = @defense
-      stats["magic"]      = @magic
-      stats["feats"]      = @feats
-      stats["hp"]         = @hp
-      return stats
+    def assign_starting_stats(job)
+      %i[hpmax hit defense magic feats hp].each do |name|
+        instance_variable_set("@#{name}", job.send(name))
+      end
+      @default_hit     = job.hit
+      @default_defense = job.defense
+      @profession      = job.name
     end
 
     def damage(enemy)

@@ -1,12 +1,19 @@
+require_relative "experience_table"
+
 module TalesOfBardorba
   class Player
+    EXPERIENCETABLE = ExperienceTable.new.load
+    LEVELCAP        = 20
+
     def initialize(name = nil)
       @name                = name
       @encounter_spells    = 1
       @encounter_abilities = 1
+      @level               = 1
+      @experience          = 0
     end
 
-    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
+    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
     attr_reader :name, :profession, :magic, :feats, :hpmax
 
     def assign_starting_stats(job)
@@ -48,6 +55,25 @@ module TalesOfBardorba
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end
+
+    def gain_experience
+      if @level < LEVELCAP
+        @experience +=1
+        if raise_level?   
+          puts raise_level?
+          @level += 1
+          puts "Congratulations, you've reached level #{@level}."
+          if @level == 20
+            puts "You have hit the level cap. You cannot gain any more levels."
+          end
+        end
+      end
+    end
+
+    def raise_level?
+      @experience == EXPERIENCETABLE[@level] 
+    end
+      
 
     def encounter_spell_available?
       encounter_spells > 0

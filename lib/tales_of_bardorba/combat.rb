@@ -22,6 +22,7 @@ module TalesOfBardorba
         puts "Congrats, you vanquished #{enemy.name}."
       end
       player.reset_stats
+      player.gain_experience
     end
 
     def round

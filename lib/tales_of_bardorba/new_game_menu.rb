@@ -10,7 +10,9 @@ module TalesOfBardorba
       profession = Input.new("What class would you like #{name} to be?\nsquire\nstreetrat\nmagician\n?", %w[squire streetrat magician]).get_line
       job = Job.new(profession)
       job.load
-      Game.new(Player.new(name, job)).play
+      player = Player.new(name)
+      player.assign_starting_stats(job)
+      Game.new(player).play
     end
   end
 end

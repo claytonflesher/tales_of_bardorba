@@ -10,7 +10,7 @@ module TalesOfBardorba
       File.open(file, "w") do |f|
         object.instance_variables.each do |name|
           value = object.instance_variable_get(name)
-          f.puts "#{name}=#{serialize_value(value)}"
+          f.puts "#{name[1..-1]}=#{serialize_value(value)}"
         end
       end
     end

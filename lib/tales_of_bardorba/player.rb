@@ -60,7 +60,6 @@ module TalesOfBardorba
       if @level < LEVELCAP
         @experience +=1
         if raise_level?   
-          puts raise_level?
           @level += 1
           puts "Congratulations, you've reached level #{@level}."
           if @level == 20

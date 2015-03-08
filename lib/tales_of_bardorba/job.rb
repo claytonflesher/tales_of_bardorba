@@ -22,8 +22,4 @@ module TalesOfBardorba
       Serializer.new(self).load(FILENAME, job)
     end
   end
-
-  def match_stats(stats)
-    @stats = stats
-  end
 end

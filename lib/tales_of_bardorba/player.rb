@@ -5,11 +5,11 @@ module TalesOfBardorba
       @default_hit          = job.hit
       @default_defense      = job.defense
       @name                 = name
-      @profession           = job.job
+      @profession           = job.name
       @encounter_spells     = 1
       @encounter_abilities  = 1
     end
-  
+
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities
     attr_reader :name, :profession, :magic, :feats, :hpmax
 

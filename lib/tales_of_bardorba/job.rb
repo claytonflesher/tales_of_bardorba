@@ -4,8 +4,8 @@ module TalesOfBardorba
   class Job
     FILENAME = File.join(__dir__, "../../data/jobstats.txt")
 
-    def initialize(job)
-      @job        = job
+    def initialize(name)
+      @name       = name
       @stats      = Hash.new
       @hpmax      = nil
       @hit        = nil
@@ -15,10 +15,10 @@ module TalesOfBardorba
       @hp         = nil
     end
 
-    attr_reader :job, :hpmax, :hit, :defense, :magic, :feats, :hp, :stats
+    attr_reader :name, :hpmax, :hit, :defense, :magic, :feats, :hp, :stats
 
     def load
-      Serializer.new(self).load(FILENAME, job)
+      Serializer.new(self).load(FILENAME, name)
     end
   end
 end

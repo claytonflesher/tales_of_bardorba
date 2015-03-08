@@ -15,8 +15,7 @@ module TalesOfBardorba
       @hp         = nil
     end
 
-    attr_reader :job
-    attr_accessor :hpmax, :hit, :defense, :magic, :feats, :hp, :stats
+    attr_reader :job, :hpmax, :hit, :defense, :magic, :feats, :hp, :stats
 
     def load
       Serializer.new(self).load(FILENAME, job)

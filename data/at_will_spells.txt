@@ -1,0 +1,15 @@
+Flash
+Zap
+Cure
+Poison
+Antidote
+Oil-slick
+Frighten
+Sleep
+Acid
+Shield
+Degenerate
+Chant
+Ward
+Curse
+Banish

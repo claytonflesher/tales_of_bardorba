@@ -1,12 +1,24 @@
-require_relative "experience_table"
+require_relative "table"
 
 module TalesOfBardorba
   class Player
-    EXPERIENCETABLE = ExperienceTable.new.load
-    LEVELCAP        = 20
+    EXPERIENCEFILE        = File.join(__dir__, "../../data/experience.txt")
+    EXPERIENCETABLE       = Table.new(EXPERIENCEFILE).load_numbers
+    ATWILLSPELLFILE       = File.join(__dir__, "../../data/at_will_spells.txt")
+    ATWILLSPELLTABLE      = Table.new(ATWILLSPELLFILE).load_strings
+    ENCOUNTERSPELLFILE    = File.join(__dir__, "../../data/encounter_spells.txt")
+    ENCOUNTERSPELLTABLE   = Table.new(ENCOUNTERSPELLFILE).load_strings
+    ATWILLABILITYFILE     = File.join(__dir__, "../../data/at_will_abilities.txt")
+    ATWILLABILITYTABLE    = Table.new(ATWILLABILITYFILE).load_strings
+    ENCOUNTERABILITYFILE  = File.join(__dir__, "../../data/encounter_abilities.txt")
+    ENCOUNTERABILITYTABLE = Table.new(ENCOUNTERABILITYFILE).load_strings
+    LEVELCAP              = 20
+    #Is there some way to do this with a single method that I just feed arguments?
 
     def initialize(name = nil)
       @name                = name
+      @at_will_available   = 0
+      @encounter_available = 0
       @encounter_spells    = 1
       @encounter_abilities = 1
       @level               = 1
@@ -14,7 +26,7 @@ module TalesOfBardorba
     end
 
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
-    attr_reader :name, :profession, :magic, :feats, :hpmax
+    attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
 
     def assign_starting_stats(job)
       %i[hpmax hit defense magic feats hp].each do |name|
@@ -34,19 +46,19 @@ module TalesOfBardorba
     end
 
     def at_will_spells_list
-      %w[Zap]
+      ATWILLSPELLTABLE[0..@at_will_available]
     end
 
     def encounter_spells_list
-      %w[Sap]
+      ENCOUNTERSPELLTABLE[0..@encounter_available]
     end
 
     def at_will_abilities_list
-      %w[Sweep]
+      ATWILLABILITYTABLE[0..@at_will_available]
     end
 
     def encounter_abilities_list
-      %W[Focus]
+      ENCOUNTERABILITYTABLE[0..@encounter_available]
     end
 
     def reset_stats

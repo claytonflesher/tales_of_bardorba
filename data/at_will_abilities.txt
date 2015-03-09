@@ -1,0 +1,15 @@
+Sweep
+Feint
+Bandage
+Bloody
+Cheap-shot
+Kick
+Focus
+Cheer
+Flurry
+Bash
+Parry
+Elbow
+Crouch
+Scream
+Deathblow

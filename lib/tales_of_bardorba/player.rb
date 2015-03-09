@@ -82,7 +82,7 @@ module TalesOfBardorba
     end
 
     def raise_level?
-      @experience == EXPERIENCETABLE[@level] 
+      @experience >= EXPERIENCETABLE[@level] 
     end
       
 

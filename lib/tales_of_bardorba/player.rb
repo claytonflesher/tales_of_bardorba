@@ -95,7 +95,7 @@ module TalesOfBardorba
     end
       
     def level_up
-      if Prime.prime_division(@level).flatten.include?(5) #suggestions?
+      if @level % 5 == 0
         @encounter_available          += 1
         @default_encounter_spells     += 1
         @default_encounter_abilities  += 1

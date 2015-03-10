@@ -11,27 +11,9 @@ module TalesOfBardorba
     attr_reader :player, :enemy, :spell_chosen
 
     def resolve
-      if player.at_will_spells_list.include?(spell_chosen)
-        execute_at_will
-      elsif player.encounter_spells_list.include?(spell_chosen)
-        execute_encounter
-      end
+      send(@spell_chosen.downcase)
     end
     
-    def execute_at_will
-      case spell_chosen
-      when "Zap"
-        zap
-      end
-    end
-
-    def execute_encounter
-      case spell_chosen
-      when "Sap"
-        sap
-      end
-    end
-
     def zap
       enemy.stunned_for = rand(1..3)
       puts "You emit a jolt of electricity.\n#{enemy.name} is stunned for #{enemy.stunned_for} turn(s)."

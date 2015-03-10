@@ -11,25 +11,7 @@ module TalesOfBardorba
     attr_reader :player, :enemy, :ability_chosen
 
     def resolve
-      if player.at_will_abilities_list.include?(ability_chosen)
-        execute_at_will
-      elsif player.encounter_abilities_list.include?(ability_chosen)
-        execute_encounter
-      end
-    end
-
-    def execute_at_will
-      case ability_chosen
-      when "Sweep"
-        sweep
-      end
-    end
-
-    def execute_encounter
-      case ability_chosen
-      when "Focus"
-        focus
-      end
+      send(@ability_chosen.downcase)
     end
 
     def sweep

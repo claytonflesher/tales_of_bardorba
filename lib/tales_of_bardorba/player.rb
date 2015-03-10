@@ -1,3 +1,4 @@
+require "prime"
 require_relative "table"
 
 module TalesOfBardorba
@@ -16,13 +17,15 @@ module TalesOfBardorba
     #Is there some way to do this with a single method that I just feed arguments?
 
     def initialize(name = nil)
-      @name                = name
-      @at_will_available   = 0
-      @encounter_available = 0
-      @encounter_spells    = 1
-      @encounter_abilities = 1
-      @level               = 1
-      @experience          = 0
+      @name                         = name
+      @at_will_available            = 0
+      @encounter_available          = 0
+      @encounter_spells             = 1
+      @default_encounter_spells     = 1
+      @encounter_abilities          = 1
+      @default_encounter_abilities  = 1
+      @level                        = 1
+      @experience                   = 0
     end
 
     attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
@@ -64,8 +67,8 @@ module TalesOfBardorba
     def reset_stats
       @hit                  = @default_hit
       @defense              = @default_defense
-      @encounter_spells     = 1
-      @encounter_abilities  = 1
+      @encounter_spells     = @default_encounter_spells
+      @encounter_abilities  = @default_encounter_abilities
     end
 
     def gain_experience
@@ -73,11 +76,17 @@ module TalesOfBardorba
         @experience +=1
         if raise_level?   
           @level += 1
+          level_up
           puts "Congratulations, you've reached level #{@level}."
-          if @level == 20
-            puts "You have hit the level cap. You cannot gain any more levels."
-          end
+          reset_stats
+          level_20?
         end
+      end
+    end
+
+    def level_20?
+      if @level == 20
+        puts "You have hit the level cap. You cannot gain any more levels."
       end
     end
 
@@ -85,6 +94,18 @@ module TalesOfBardorba
       @experience >= EXPERIENCETABLE[@level] 
     end
       
+    def level_up
+      if Prime.prime_division(@level).flatten.include?(5) #suggestions?
+        @encounter_available          += 1
+        @default_encounter_spells     += 1
+        @default_encounter_abilities  += 1
+        @hit                          += 1
+      else
+        @at_will_available            += 1
+        @default_defense              += 1
+      end
+      @hpmax                          += 5
+    end
 
     def encounter_spell_available?
       encounter_spells > 0

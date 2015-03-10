@@ -18,6 +18,7 @@ module TalesOfBardorba
       end
       if player.dead?
         puts "#{player.name} died."
+        exit
       elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
       end

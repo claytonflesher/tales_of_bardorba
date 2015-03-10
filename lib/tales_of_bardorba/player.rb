@@ -1,4 +1,3 @@
-require "prime"
 require_relative "table"
 
 module TalesOfBardorba

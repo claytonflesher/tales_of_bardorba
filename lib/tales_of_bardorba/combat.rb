@@ -106,7 +106,7 @@ module TalesOfBardorba
         attack(victim, opponent)
       end
       victim.blinded_for -= 1
-      enemy.reset_hit if enemy.blinded_for == 0
+      victim.reset_hit if victim.blinded_for == 0
     end
 
     def resolve_stunned_round(target)

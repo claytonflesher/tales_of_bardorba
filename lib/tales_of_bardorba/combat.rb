@@ -106,7 +106,7 @@ module TalesOfBardorba
         attack(victim, opponent)
       end
       victim.blinded_for -= 1
-      if victim.blinded_for == 0; victim.reset_hit; end
+      enemy.reset_hit if enemy.blinded_for == 0
     end
 
     def resolve_stunned_round(target)
@@ -124,9 +124,7 @@ module TalesOfBardorba
     end
 
     def resolve_poison_round(victim)
-      if victim.poisoned?
-        victim.hp -= (victim.hpmax/10)
-      end
+      victim.hp -= (victim.hpmax/10) if victim.poisoned?
     end
 
     def resolve_fright_round(victim)

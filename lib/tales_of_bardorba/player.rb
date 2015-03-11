@@ -25,10 +25,20 @@ module TalesOfBardorba
       @default_encounter_abilities  = 1
       @level                        = 1
       @experience                   = 0
+      status_effects
     end
 
-    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
+    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience, :stunned_for, :blinded_for, :sleep, :sleep_marker, :poison, :afraid
     attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
+
+    def status_effects
+      @stunned_for      = 0
+      @blinded_for      = 0
+      @sleep            = false
+      @poison           = false
+      @afraid           = false
+      @sleep_marker     = @hp
+    end
 
     def assign_starting_stats(job)
       %i[hpmax hit defense magic feats hp].each do |name|
@@ -68,6 +78,10 @@ module TalesOfBardorba
       @defense              = @default_defense
       @encounter_spells     = @default_encounter_spells
       @encounter_abilities  = @default_encounter_abilities
+    end
+
+    def reset_hit
+      @hit = @default_hit
     end
 
     def gain_experience
@@ -112,6 +126,18 @@ module TalesOfBardorba
 
     def encounter_ability_available?
       encounter_abilities > 0
+    end
+
+    def asleep?
+      @sleep == true
+    end
+    
+    def poisoned?
+      @poison == true
+    end
+
+    def afraid?
+      @afraid == true
     end
   end
 end

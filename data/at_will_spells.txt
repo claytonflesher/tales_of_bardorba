@@ -3,7 +3,7 @@ Zap
 Cure
 Poison
 Antidote
-Oil-slick
+Oil_slick
 Frighten
 Sleep
 Acid

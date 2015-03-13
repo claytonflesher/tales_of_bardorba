@@ -41,7 +41,7 @@ module TalesOfBardorba
 
     def resolve_round(target, opponent, input = nil)
       status_effect_event(target, opponent, "before")
-      if target.status_effect.any? { |status_effect| status_effect.afraid? }
+      if target.status_effects.any? { |status_effect| status_effect.afraid? }
         run_away(target, opponent)
       else
         resolve_status_effects(target, opponent, input)

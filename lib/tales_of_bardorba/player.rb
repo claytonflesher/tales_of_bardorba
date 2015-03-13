@@ -95,13 +95,13 @@ module TalesOfBardorba
           level_up
           puts "Congratulations, you've reached level #{@level}."
           reset_stats
-          level_20?
+          level_cap?
         end
       end
     end
 
-    def level_20?
-      if @level == 20
+    def level_cap?
+      if @level == LEVELCAP
         puts "You have hit the level cap. You cannot gain any more levels."
       end
     end

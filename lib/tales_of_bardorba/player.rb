@@ -32,12 +32,15 @@ module TalesOfBardorba
     attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
 
     def status_effects
-      @stunned_for      = 0
-      @blinded_for      = 0
-      @sleep            = false
-      @poison           = false
-      @afraid           = false
-      @sleep_marker     = @hp
+      @status_effects   = [ ]
+    end
+
+    def apply_status_effect(status_effect)
+      status_effects << status_effect
+    end
+
+    def remove_status_effect(status_effect)
+      status_effects.delete(status_effect)
     end
 
     def assign_starting_stats(job)
@@ -112,7 +115,7 @@ module TalesOfBardorba
         @encounter_available          += 1
         @default_encounter_spells     += 1
         @default_encounter_abilities  += 1
-        @hit                          += 1
+        @default_hit                  += 1
       else
         @at_will_available            += 1
         @default_defense              += 1
@@ -121,23 +124,21 @@ module TalesOfBardorba
     end
 
     def encounter_spell_available?
-      encounter_spells > 0
+      @encounter_spells > 0
     end
 
     def encounter_ability_available?
-      encounter_abilities > 0
+      @encounter_abilities > 0
     end
 
-    def asleep?
-      @sleep == true
-    end
-    
-    def poisoned?
-      @poison == true
-    end
+    def use_encounter_spell
+      @encounter_spells -= 1
 
-    def afraid?
-      @afraid == true
+    def heal
+      @hp += @hpmax / 4
+      if @hp > @hpmax
+        @hp = @hpmax
+      end
     end
   end
 end

@@ -31,109 +31,56 @@ module TalesOfBardorba
       input.query_user
       [player, enemy].shuffle.each do |actor|
         if actor == player && !player.dead?
-          resolve_player_round(input)
+          resolve_round(player, enemy, input)
         elsif actor == enemy && !enemy.dead?
-          resolve_enemy_round
+          resolve_round(enemy, player)
         end
       end
       puts "#{player.name}'s current hp is #{player.hp}\n\n"
     end
 
-    def resolve_player_round(input)
-      resolve_fright_round(player)
-      if player.afraid?
-        run_away(player, enemy)
+    def resolve_round(target, opponent, input = nil)
+      status_effect_event(target, opponent, "before")
+      if target.status_effect.any? { |status_effect| status_effect.afraid? }
+        run_away(target, opponent)
       else
-        resolve_player_status_effects(input)
-        resolve_poison_round(player)
+        resolve_status_effects(target, opponent, input)
+      end
+      status_effect_event(target, opponent, "after")
+    end
+
+    def status_effect_event(target, opponent, time)
+      if time == "before"
+        target.status_effects.each do |status_effect|
+          status_effect.apply_before_turn(target)
+        end
+      elsif time == "after"
+        target.status_effects.each do |status_effect|
+          status_effect.apply_after_turn(target)
+        end
       end
     end
 
-    def resolve_player_status_effects(input)
-      if player.stunned_for > 0
-        resolve_stunned_round(player)
-      elsif player.blinded_for > 0
-        resolve_blinded_round(player, enemy, input)
-      elsif player.asleep?
-        resolve_sleep_round(player)
-        puts "#{player.name} is asleep."
-      else
-        perform_player_action(input)
+    def resolve_status_effects(target, opponent, input)
+      if target.status_effect.all? { |status_effect| status_effect.can_act? }
+        if target == @player
+          perform_player_action(input)
+        elsif target == @enemy
+          attack(@enemy, @player)
+        end
       end
     end
 
     def perform_player_action(input)
       case input.action
       when "A"
-        attack(player, enemy)
+        attack(@player, @enemy)
       when "B"
-        Ability.new(player, enemy, input.ability).resolve
+        Ability.new(@player, @enemy, input.ability).resolve
       when "S"
-        Spell.new(player, enemy, input.spell).resolve
+        Spell.new(@player, @enemy, input.spell).resolve
       when "R"
-        run_away(player, enemy)
-      end
-    end
-
-    def resolve_enemy_round
-      resolve_fright_round(enemy)
-      if enemy.afraid?
-        run_away(enemy, player)
-      else
-        resolve_enemy_status_effects
-        resolve_poison_round(enemy)
-      end
-    end
-
-    def resolve_enemy_status_effects
-      if enemy.stunned_for > 0 
-        resolve_stunned_round(enemy)
-      elsif enemy.blinded_for > 0
-        resolve_blinded_round(enemy, player)
-      elsif enemy.asleep?
-        resolve_sleep_round(enemy)
-      else
-        attack(enemy, player)
-      end
-    end
-
-
-    def resolve_blinded_round(victim, opponent, input = nil)
-      puts "#{victim.name} is blinded."
-      if victim == player
-        perform_player_action(input)
-      else
-        attack(victim, opponent)
-      end
-      victim.blinded_for -= 1
-      victim.reset_hit if victim.blinded_for == 0
-    end
-
-    def resolve_stunned_round(target)
-      puts "#{target.name} is stunned."
-      target.stunned_for -= 1
-    end
-
-    def resolve_sleep_round(victim)
-      if victim.hp == victim.sleep_marker
-        puts "#{victim.name} is asleep."
-      else
-        puts "#{victim.name} woke up!"
-        victim.sleep = false
-      end
-    end
-
-    def resolve_poison_round(victim)
-      victim.hp -= (victim.hpmax/10) if victim.poisoned?
-    end
-
-    def resolve_fright_round(victim)
-      if victim.afraid?
-        steel_will = rand(2)
-        if steel_will == 0
-          victim.afraid = false
-          puts "#{victim.name} found the courage to continue fighting."
-        end
+        run_away(@player, @enemy)
       end
     end
 

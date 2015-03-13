@@ -28,7 +28,7 @@ module TalesOfBardorba
       status_effects
     end
 
-    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience, :stunned_for, :blinded_for, :sleep, :sleep_marker, :poison, :afraid
+    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
     attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
 
     def status_effects
@@ -109,7 +109,7 @@ module TalesOfBardorba
     def raise_level?
       @experience >= EXPERIENCETABLE[@level] 
     end
-      
+
     def level_up
       if @level % 5 == 0
         @encounter_available          += 1
@@ -134,10 +134,11 @@ module TalesOfBardorba
     def use_encounter_spell
       @encounter_spells -= 1
 
-    def heal
-      @hp += @hpmax / 4
-      if @hp > @hpmax
-        @hp = @hpmax
+      def heal
+        @hp += @hpmax / 4
+        if @hp > @hpmax
+          @hp = @hpmax
+        end
       end
     end
   end

@@ -62,7 +62,7 @@ module TalesOfBardorba
     end
 
     def resolve_status_effects(target, opponent, input)
-      if target.status_effect.all? { |status_effect| status_effect.can_act? }
+      if target.status_effects.all? { |status_effect| status_effect.can_act? }
         if target == @player
           perform_player_action(input)
         elsif target == @enemy

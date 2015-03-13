@@ -32,7 +32,7 @@ module TalesOfBardorba
     attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
 
     def status_effects
-      @status_effects   = [ ]
+      status_effects = [ ]
     end
 
     def apply_status_effect(status_effect)

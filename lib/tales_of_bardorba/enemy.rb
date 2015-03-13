@@ -15,12 +15,15 @@ module TalesOfBardorba
     attr_reader :name
 
     def status_effects
-      @stunned_for  = 0
-      @blinded_for  = 0
-      @sleep        = false 
-      @sleep_marker = @hp
-      @poison       = false
-      @afraid       = false
+      status_effects = [ ]
+    end
+
+    def apply_status_effect(status_effect)
+      status_effects << status_effect
+    end
+
+    def remove_status_effect(status_effect)
+      status_effects << status_effect
     end
     
     def damage(player)
@@ -37,18 +40,6 @@ module TalesOfBardorba
 
     def reset_defense
       @defense = @default_defense
-    end
-
-    def asleep?
-      @sleep == true
-    end
-
-    def poisoned?
-      @poison == true
-    end
-
-    def afraid?
-      @afraid == true
     end
   end
 end

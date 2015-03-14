@@ -11,8 +11,7 @@ module TalesOfBardorba
       status_effects
     end
 
-    attr_accessor :hp, :hit, :defense, :stunned_for, :blinded_for, :sleep, :sleep_marker, :poison, :afraid
-    attr_reader :name
+    attr_reader :name, :hp, :hit, :defense, :default_hit, :default_defense, :hpmax
 
     def status_effects
       status_effects = [ ]

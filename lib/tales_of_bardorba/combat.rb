@@ -95,7 +95,10 @@ module TalesOfBardorba
     end
 
     def hit?(attacker, target)
-      attack = rand(1..(attacker.hit - target.defense))
+      modified_hit = attacker.status_effects.inject(attacker.hit) { |sum, se|
+        sum + se.hit_modifier(attacker)
+      }
+      attack       = rand(1..(modified_hit - target.defense))
       if attack == nil
         return false
       else

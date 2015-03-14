@@ -25,14 +25,13 @@ module TalesOfBardorba
       @default_encounter_abilities  = 1
       @level                        = 1
       @experience                   = 0
-      status_effects
+      @status_effects               = [ ]
     end
 
-    attr_reader :name, :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
-
-    def status_effects
-      status_effects = [ ]
-    end
+    attr_reader :name, :hp, :hit, :defense, :encounter_spells,
+                :encounter_abilities, :level, :experience, :profession, :magic,
+                :feats, :hpmax, :at_will_available, :encounter_available,
+                :status_effects
 
     def apply_status_effect(status_effect)
       status_effects << status_effect

@@ -21,9 +21,9 @@ module TalesOfBardorba
         exit
       elsif enemy.dead?
         puts "Congrats, you vanquished #{enemy.name}."
+        player.gain_experience
       end
       player.reset_stats
-      player.gain_experience
     end
 
     def round
@@ -105,7 +105,7 @@ module TalesOfBardorba
 
     def run_away(coward, opponent)
       attempt     = rand(3)
-      if attempt > 0 || opponent.stunned_for > 0
+      if attempt > 0 || !opponent.status_effects.all? { |status_effect| status_effect.can_act? }
         puts "#{coward.name} ran away like a coward.\nCongratulations, you live to see another day."
         @ran_away = true
       else

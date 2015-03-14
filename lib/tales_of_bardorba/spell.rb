@@ -23,14 +23,15 @@ module TalesOfBardorba
     end
 
     def flash
-      opponent.apply_status_effect(StatusEffect.new("blinded"))
-      puts "#{caster.name} sends sparks from their finger tips at #{opponent.name}.\nThe #{opponent.name} is temporarily blinded."
+      duration = rand(1..5)
+      opponent.apply_status_effect(BlindedStatusEffect.new(duration))
+      puts "#{caster.name} sends sparks from their finger tips at #{opponent.name}.\nThe #{opponent.name} is blinded for #{duration} turns."
     end
     
     def zap
       duration = rand(1..3)
-      opponent.apply_status_effect(StatusEffectWithDuration.new("stunned", duration))
-      puts "#{caster.name} emits a jolt of electricity.\n#{opponent.name} is stunned for #{opponent.stunned_for} turn(s)."
+      opponent.apply_status_effect(StunnedStatusEffect.new(duration))
+      puts "#{caster.name} emits a jolt of electricity.\n#{opponent.name} is stunned for #{duration} turn(s)."
     end
 
     def cure
@@ -40,7 +41,7 @@ module TalesOfBardorba
 
     def poison
       if rand(2) == 0
-        opponent.apply_status_effect(StatusEffect.new("poisoned"))
+        opponent.apply_status_effect(PoisonedStatusEffect.new)
         puts "#{opponent.name} is poisoned and is slowly losing health."
       else
         puts "#{opponent.name} does not become poisoned."
@@ -58,14 +59,14 @@ module TalesOfBardorba
 
     def oil_slick
       duration = rand(1..6)
-      opponent.apply_status_effect(StatusEffectWithDuration.new("stunned", duration))
+      opponent.apply_status_effect(StunnedStatusEffect.new(duration))
       puts "#{caster.name} shoots a stream of black oil from their fingers, creating a large pool that trips up #{opponent.name}."
     end
 
     def frighten
       puts "#{caster.name}'s face distorts into a horrifying mask."
       if rand(4) == 0
-        opponent.apply_status_effect(StatusEffect.new("afraid"))
+        opponent.apply_status_effect(AfraidStatusEffect.new)
         puts "#{opponent.name} is frightened."
       else
         puts "#{opponent.name} resists the spell."
@@ -75,7 +76,7 @@ module TalesOfBardorba
     def sleep
       puts "#{caster.name} begins a droning chant."
       if rand(3) == 0
-        opponent.apply_status_effect(StatusEffect.new("asleep"))
+        opponent.apply_status_effect(AsleepStatusEffect.new)
         puts "#{opponent.name} dozes off to sleep."
       else
         puts "#{opponent.name} resists your spell."
@@ -91,16 +92,16 @@ module TalesOfBardorba
 
     def shield
       puts "#{caster.name} forms a magical barrier of protection, making them more difficult to hit."
-      caster.apply_status_effect(StatusEffect.new("shield"))
+      caster.apply_status_effect(ShieldStatusEffect.new)
     end
 
     def degenerate
       puts "You fire a blast that weakens your opponent's defenses."
-      opponent.apply_status_effect(StatusEffect.new("degenerate"))
+      opponent.apply_status_effect(DegenerateStatusEffect.new)
     end
 
     def sap
-      opponent.apply_status_effect(StatusEffect.new("sap"))
+      opponent.apply_status_effect(SappedStatusEffect.new)
       caster.use_encounter_spell
       puts "#{caster.name}'s spell drains a small amount of #{opponent.name}'s defenses."
     end

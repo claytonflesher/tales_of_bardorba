@@ -28,8 +28,7 @@ module TalesOfBardorba
       status_effects
     end
 
-    attr_accessor :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience
-    attr_reader :name, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
+    attr_reader :name, :hp, :hit, :defense, :encounter_spells, :encounter_abilities, :level, :experience, :profession, :magic, :feats, :hpmax, :at_will_available, :encounter_available
 
     def status_effects
       status_effects = [ ]

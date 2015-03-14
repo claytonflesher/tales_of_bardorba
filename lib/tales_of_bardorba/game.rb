@@ -40,7 +40,7 @@ module TalesOfBardorba
       when "E"
         explore_world
       when "R"
-        player.heal
+        player.restore
       when "S"
         save
       when "Q"

@@ -3,3 +3,4 @@ Lightning
 Blizzard
 Fireball
 Blackhole
+Conflagration

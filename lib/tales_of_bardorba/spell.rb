@@ -85,7 +85,7 @@ module TalesOfBardorba
 
     def acid
       amount = rand(1..5)
-      opponent.damage(amount)
+      opponent.take_damage(amount)
       puts "#{caster.name} forms a green cloud over #{opponent.name} that rains steaming acid.\nThe acid causes #{amount} damage to #{opponent.name}"
       poison
     end
@@ -104,6 +104,46 @@ module TalesOfBardorba
       opponent.apply_status_effect(SappedStatusEffect.new)
       caster.use_encounter_spell
       puts "#{caster.name}'s spell drains a small amount of #{opponent.name}'s defenses."
+    end
+
+    def lightning
+      amount = rand(10..20)
+      opponent.take_damage(amount)
+      puts "#{caster.name} calls down a bolt from the heavens, striking #{opponent.name} for #{amount} damage."
+    end
+
+    def blizzard
+      amount = rand(15..25)
+      opponent.take_damage(amount)
+      duration = rand(2..5)
+      opponent.apply_status_effect(StunnedStatusEffect.new(duration))
+      puts "#{caster.name} summons a raging ice storm, doing #{amount} damage and stunning #{opponent.name} for #{duration} turns."
+    end
+
+    def fireball
+      amount = rand(20..30)
+      opponent.take_damage(amount)
+      opponent.apply_status_effect(PoisonedStatusEffect.new)
+      puts "#{caster.name} hurls a fireball from the heavens, causing #{amount} impact damage and setting #{opponent.name} aflame."
+    end
+
+    def blackhole
+      amount = rand(35..40)
+      opponent.take_damage(amount)
+      duration = rand(3..7)
+      opponent.apply_status_effect(StunnedStatusEffect.new(duration))
+      puts "#{caster.name} forms a black hole in the location of #{opponent.name}, causing #{amount} damage and preventing actions for #{duration} turns."
+    end
+
+    def conflagration
+      amount = rand(40..50)
+      opponent.take_damage(amount)
+      duration = rand(3..7)
+      opponent.apply_status_effect(StunnedStatusEffect.new(duration))
+      opponent.apply_status_effect(PoisonedStatusEffect.new)
+      opponent.apply_status_effect(DegenerateStatusEffect.new)
+      opponent.apply_status_effect(AfraidStatusEffect.new)
+      puts "#{caster.name} summons a hellish firestorm, doing #{amount} damage and stunning #{opponent.name} for #{duration} rounds.\n#{opponent.name}'s armor is damaged and set ablaze.\n#{opponent.name} becomes frightened."
     end
   end
 end

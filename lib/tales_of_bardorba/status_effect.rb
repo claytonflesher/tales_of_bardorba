@@ -14,10 +14,6 @@ module TalesOfBardorba
      true
     end
 
-    def afraid?
-      false
-    end
-
     def hit_modifier(target)
       0
     end

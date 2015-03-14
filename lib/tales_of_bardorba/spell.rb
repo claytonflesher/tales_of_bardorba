@@ -6,7 +6,7 @@ require_relative "afraid_status_effect"
 require_relative "asleep_status_effect"
 require_relative "shield_status_effect"
 require_relative "degenerate_status_effect"
-require_relative "sap_status_effect"
+require_relative "sapped_status_effect"
 
 module TalesOfBardorba
   class Spell

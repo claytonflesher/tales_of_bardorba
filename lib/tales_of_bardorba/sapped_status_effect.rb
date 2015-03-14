@@ -1,9 +1,9 @@
 require_relative "status_effect"
 
 module TalesOfBardorba
-  class SapStatusEffect < StatusEffect
+  class SappedStatusEffect < StatusEffect
     def initialize
-      super("sap")
+      super("sapped")
     end
 
     def defense_modifier(target)

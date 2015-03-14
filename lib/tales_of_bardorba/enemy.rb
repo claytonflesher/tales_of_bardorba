@@ -8,21 +8,18 @@ module TalesOfBardorba
       @hp               = @hpmax
       @hit              = @default_hit
       @defense          = @default_defense
-      status_effects
+      @status_effects   = [ ]
     end
 
-    attr_reader :name, :hp, :hit, :defense, :default_hit, :default_defense, :hpmax
-
-    def status_effects
-      status_effects = [ ]
-    end
+    attr_reader :name, :hp, :hit, :defense, :default_hit, :default_defense,
+                :hpmax, :status_effects
 
     def apply_status_effect(status_effect)
       status_effects << status_effect
     end
 
     def remove_status_effect(status_effect)
-      status_effects << status_effect
+      status_effects.delete(status_effect)
     end
     
     def damage(player)

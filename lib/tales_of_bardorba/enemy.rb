@@ -28,17 +28,21 @@ module TalesOfBardorba
     def damage(player)
       rand(1..6) + (@hit - player.defense)
     end
+
+    def take_damage(amount)
+      @hp -= amount
+    end
     
     def dead?
       hp < 0
     end
 
     def reset_hit
-      @hit = @default_hit
+      hit = default_hit
     end
 
     def reset_defense
-      @defense = @default_defense
+      defense = default_defense
     end
   end
 end

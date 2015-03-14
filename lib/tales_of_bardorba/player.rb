@@ -55,6 +55,10 @@ module TalesOfBardorba
       rand(1..6) + (@hit - enemy.defense)
     end
 
+    def take_damage(amount)
+      @hp -= amount
+    end
+
     def dead?
       hp < 1
     end
@@ -132,13 +136,17 @@ module TalesOfBardorba
 
     def use_encounter_spell
       @encounter_spells -= 1
+    end
 
-      def heal
-        @hp += @hpmax / 4
-        if @hp > @hpmax
-          @hp = @hpmax
-        end
+    def heal
+      @hp += @hpmax / 4
+      if @hp > @hpmax
+        @hp = @hpmax
       end
+    end
+
+    def restore
+      @hp = @hpmax
     end
   end
 end

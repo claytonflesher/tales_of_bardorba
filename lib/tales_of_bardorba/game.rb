@@ -40,7 +40,7 @@ module TalesOfBardorba
       when "E"
         explore_world
       when "R"
-        heal_player
+        player.heal
       when "S"
         save
       when "Q"
@@ -76,11 +76,6 @@ module TalesOfBardorba
       when "C"
         determine_world_event
       end
-    end
-
-    def heal_player
-      player.hp = player.hpmax
-      puts "After a short period of time, you feel reinvigorated. You now have #{player.hp} HP."
     end
 
     def save

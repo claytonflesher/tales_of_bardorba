@@ -1,2 +1,2 @@
-Gobby McGobmonster|10|10|1
-Your Worst Nightmare|100|10|2
+Gobby McGobmonster|10|10|1|10
+Your Worst Nightmare|100|10|2|100

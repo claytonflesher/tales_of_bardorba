@@ -20,10 +20,16 @@ module TalesOfBardorba
         puts "#{player.name} died."
         exit
       elsif enemy.dead?
-        puts "Congrats, you vanquished #{enemy.name}."
-        player.gain_experience
+        win
       end
       player.reset_stats
+    end
+
+    def win
+      puts "Congrats, you vanquished #{enemy.name}."
+      player.gain_experience
+      player.gain_money(enemy.money)
+      puts player.money
     end
 
     def round

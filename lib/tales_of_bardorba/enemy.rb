@@ -2,11 +2,12 @@ require_relative "character"
 
 module TalesOfBardorba
   class Enemy < Character
-    def initialize(name, hp, hit, defense)
+    def initialize(name, hp, hit, defense, money)
+      @name             = name
       @hpmax            = hp
       @default_hit      = hit
       @default_defense  = defense
-      @name             = name
+      @money            = money
       @hp               = @hpmax
       @hit              = @default_hit
       @defense          = @default_defense
@@ -14,6 +15,6 @@ module TalesOfBardorba
     end
 
     attr_reader :name, :hp, :hit, :defense, :default_hit, :default_defense,
-                :hpmax, :status_effects
+                :hpmax, :status_effects, :money
   end
 end

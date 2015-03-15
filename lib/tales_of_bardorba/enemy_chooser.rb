@@ -10,7 +10,8 @@ module TalesOfBardorba
         hp      = fields[1].to_i
         hit     = fields[2].to_i  
         defense = fields[3].to_i  
-        @enemies << Enemy.new(name, hp, hit, defense)
+        money   = fields[4].to_i
+        @enemies << Enemy.new(name, hp, hit, defense, money)
       end
     end
 

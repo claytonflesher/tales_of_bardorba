@@ -83,6 +83,7 @@ module TalesOfBardorba
       @defense              = @default_defense
       @encounter_spells     = @default_encounter_spells
       @encounter_abilities  = @default_encounter_abilities
+      @status_effects = [ ]
     end
 
     def reset_hit

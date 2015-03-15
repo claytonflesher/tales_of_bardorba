@@ -12,6 +12,7 @@ module TalesOfBardorba
     def load
       player = Player.new
       Serializer.new(player).load(FILENAME)
+      player.reset_stats
       player
     end
   end

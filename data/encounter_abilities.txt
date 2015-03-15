@@ -1,5 +1,5 @@
-Sap
+Palm
 Rage
-Guard-stance
+Guard
 Cleave
-Double-strike
+Deathblow

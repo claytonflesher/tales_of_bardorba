@@ -1,4 +1,3 @@
-require_relative "input"
 require_relative "poisoned_status_effect"
 require_relative "blinded_status_effect"
 require_relative "stunned_status_effect"
@@ -102,14 +101,15 @@ module TalesOfBardorba
 
     def sap
       opponent.apply_status_effect(SappedStatusEffect.new)
-      caster.use_encounter_spell
       puts "#{caster.name}'s spell drains a small amount of #{opponent.name}'s defenses."
+      caster.use_encounter_spell
     end
 
     def lightning
       amount = rand(10..20)
       opponent.take_damage(amount)
       puts "#{caster.name} calls down a bolt from the heavens, striking #{opponent.name} for #{amount} damage."
+      caster.use_encounter_spell
     end
 
     def blizzard
@@ -118,6 +118,7 @@ module TalesOfBardorba
       duration = rand(2..5)
       opponent.apply_status_effect(StunnedStatusEffect.new(duration))
       puts "#{caster.name} summons a raging ice storm, doing #{amount} damage and stunning #{opponent.name} for #{duration} turns."
+      caster.use_encounter_spell
     end
 
     def fireball
@@ -125,6 +126,7 @@ module TalesOfBardorba
       opponent.take_damage(amount)
       opponent.apply_status_effect(PoisonedStatusEffect.new)
       puts "#{caster.name} hurls a fireball from the heavens, causing #{amount} impact damage and setting #{opponent.name} aflame."
+      caster.use_encounter_spell
     end
 
     def blackhole
@@ -133,6 +135,7 @@ module TalesOfBardorba
       duration = rand(3..7)
       opponent.apply_status_effect(StunnedStatusEffect.new(duration))
       puts "#{caster.name} forms a black hole in the location of #{opponent.name}, causing #{amount} damage and preventing actions for #{duration} turns."
+      caster.use_encounter_spell
     end
 
     def conflagration
@@ -144,6 +147,7 @@ module TalesOfBardorba
       opponent.apply_status_effect(DegenerateStatusEffect.new)
       opponent.apply_status_effect(AfraidStatusEffect.new)
       puts "#{caster.name} summons a hellish firestorm, doing #{amount} damage and stunning #{opponent.name} for #{duration} rounds.\n#{opponent.name}'s armor is damaged and set ablaze.\n#{opponent.name} becomes frightened."
+      caster.use_encounter_spell
     end
   end
 end

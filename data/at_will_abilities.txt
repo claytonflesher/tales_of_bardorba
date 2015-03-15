@@ -2,7 +2,7 @@ Sweep
 Feint
 Bandage
 Bloody
-Cheap-shot
+Sleep_strike
 Kick
 Focus
 Cheer
@@ -12,4 +12,4 @@ Parry
 Elbow
 Crouch
 Scream
-Deathblow
+Quad

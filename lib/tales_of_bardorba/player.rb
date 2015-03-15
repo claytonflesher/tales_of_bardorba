@@ -118,7 +118,7 @@ module TalesOfBardorba
         @encounter_available          += 1
         @default_encounter_spells     += 1
         @default_encounter_abilities  += 1
-        @default_hit                  += 1
+        @default_hit                  += 4
       else
         @at_will_available            += 1
         @default_defense              += 1
@@ -136,6 +136,10 @@ module TalesOfBardorba
 
     def use_encounter_spell
       @encounter_spells -= 1
+    end
+
+    def use_encounter_ability
+      @encounter_abilities -= 1
     end
 
     def heal

@@ -1,7 +1,8 @@
+require_relative "character"
 require_relative "table"
 
 module TalesOfBardorba
-  class Player
+  class Player < Character
     EXPERIENCEFILE        = File.join(__dir__, "../../data/experience.txt")
     EXPERIENCETABLE       = Table.new(EXPERIENCEFILE).load_numbers
     ATWILLSPELLFILE       = File.join(__dir__, "../../data/at_will_spells.txt")
@@ -33,14 +34,6 @@ module TalesOfBardorba
                 :feats, :hpmax, :at_will_available, :encounter_available,
                 :status_effects
 
-    def apply_status_effect(status_effect)
-      status_effects << status_effect
-    end
-
-    def remove_status_effect(status_effect)
-      status_effects.delete(status_effect)
-    end
-
     def assign_starting_stats(job)
       %i[hpmax hit defense magic feats hp].each do |name|
         instance_variable_set("@#{name}", job.send(name))
@@ -48,18 +41,6 @@ module TalesOfBardorba
       @default_hit     = job.hit
       @default_defense = job.defense
       @profession      = job.name
-    end
-
-    def damage(enemy)
-      rand(1..6) + (@hit - enemy.defense)
-    end
-
-    def take_damage(amount)
-      @hp -= amount
-    end
-
-    def dead?
-      hp < 1
     end
 
     def at_will_spells_list
@@ -84,10 +65,6 @@ module TalesOfBardorba
       @encounter_spells     = @default_encounter_spells
       @encounter_abilities  = @default_encounter_abilities
       @status_effects = [ ]
-    end
-
-    def reset_hit
-      @hit = @default_hit
     end
 
     def gain_experience
@@ -140,17 +117,6 @@ module TalesOfBardorba
 
     def use_encounter_ability
       @encounter_abilities -= 1
-    end
-
-    def heal
-      @hp += @hpmax / 4
-      if @hp > @hpmax
-        @hp = @hpmax
-      end
-    end
-
-    def restore
-      @hp = @hpmax
     end
   end
 end

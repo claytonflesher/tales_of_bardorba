@@ -29,7 +29,7 @@ module TalesOfBardorba
       puts "Congrats, you vanquished #{enemy.name}."
       player.gain_experience
       player.gain_money(enemy.money)
-      puts player.money
+      puts "#{player.name} recieves $#{enemy.money}.\n#{player.name} now has $#{player.money}."
     end
 
     def round

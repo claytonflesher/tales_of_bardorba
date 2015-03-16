@@ -17,7 +17,7 @@ module TalesOfBardorba
     #Is there some way to do this with a single method that I just feed arguments?
 
     def initialize(name = nil)
-      @name                         = name
+      super(name)
       @at_will_available            = 0
       @encounter_available          = 0
       @encounter_spells             = 1
@@ -26,7 +26,6 @@ module TalesOfBardorba
       @default_encounter_abilities  = 1
       @level                        = 1
       @experience                   = 0
-      @status_effects               = [ ]
       @minimum_money                = 0
     end
 

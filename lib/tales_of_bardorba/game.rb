@@ -108,18 +108,23 @@ module TalesOfBardorba
       puts "Among the patrons you see a group of angry-looking farmers, a well-armed man in a ragged cloak, and a young boy attempting to hold back tears."
     end
 
-    # I haven't figured out how to get the below method down the the appropriate size. I am aware that the use of semi-colons doesn't count. I'll try to fix it soon.
     def tavern_action(input)
       case input
       when "B"
-        Conversation.new(player).bartender; sleep 0.5; tavern_choice
+        chat_in_tavern_with(:bartender)
       when "I"
-        Conversation.new(player).innkeep; sleep 0.5; tavern_choice
+        chat_in_tavern_with(:innkeep)
       when "P"
-        Conversation.new(player).patron; sleep 0.5; tavern_choice
+        chat_in_tavern_with(:patron)
       when "L"
         village_action_choice
       end
+    end
+
+    def chat_in_tavern_with(npc)
+      Conversation.new(player).self(npc)
+      sleep 0.5
+      tavern_choice
     end
 
     def go_to_shop

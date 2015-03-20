@@ -2,6 +2,8 @@ require_relative "input"
 require_relative "drunk_status_effect"
 
 module TalesOfBardorba
+  BARCOST = 10
+  INNCOST = 100
   class Conversation
     def initialize(player)
       @player = player
@@ -10,41 +12,39 @@ module TalesOfBardorba
     attr_reader :player
     
     def bartender
-      cost = 10
-      input = Input.new("Buy a drink? It'll cost you $#{cost}.\n[Y]es\n[N]o", %[Y N]).get_char
+      input = Input.new("Buy a drink? It'll cost you $#{BARCOST}.\n[Y]es\n[N]o", %[Y N]).get_char
       if input == "Y"
-        if player.money >= cost
-          get_drunk(cost)
+        if player.money >= BARCOST
+          get_drunk
         else
           puts "You don't have enough money."
         end
       end
     end
 
-    def get_drunk(cost)
+    def get_drunk
       puts "The bartender pours you an ale."
-      puts "'That'll be $#{cost}."
-      player.lose_money(cost)
+      puts "'That'll be $#{BARCOST}."
+      player.lose_money(BARCOST)
       sleep 0.5
       puts "It hits the spot.\nYou feel a little tipsy."
       player.apply_status_effect(DrunkStatusEffect.new(10))
     end
 
     def innkeep
-      cost = 500
-      input = Input.new("Get a room? It'll cost you $#{cost}.\n[Y]es\n[N]o", %[Y N]).get_char
+      input = Input.new("Get a room? It'll cost you $#{INNCOST}.\n[Y]es\n[N]o", %[Y N]).get_char
       if input == "Y"
-        if player.money >= cost
-          get_room(cost)
+        if player.money >= INNCOST
+          get_room
         else
           puts "You don't have enough money."
         end
       end
     end
     
-    def get_room(cost)
-      puts "You pay $#{cost}."
-      player.lose_money(cost)
+    def get_room
+      puts "You pay $#{INNCOST}."
+      player.lose_money(INNCOST)
       puts "You sleep for the night."
       player.reset_stats
       player.restore

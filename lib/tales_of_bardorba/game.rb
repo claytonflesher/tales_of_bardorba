@@ -2,7 +2,7 @@ require_relative "enemy_chooser"
 require_relative "combat"
 require_relative "input"
 require_relative "saved_game"
-require_relative "conversation"
+require_relative "tavern_menu"
 
 
 module TalesOfBardorba
@@ -41,15 +41,13 @@ module TalesOfBardorba
       when "E"
         explore_world
       when "T"
-        go_to_tavern
-        player.restore
+        TavernMenu.new(player).look_around
       when "S"
         save
       when "Q"
         quit
       end
     end
-
 
     def explore_world
       @in_village = false
@@ -92,37 +90,6 @@ module TalesOfBardorba
       
     def go_to_tavern
       puts "As you enter the tavern, you look around."
-      sleep 0.5
-      tavern_choice
-    end
-
-    def tavern_choice
-      puts "Behind the bar stands a grim looking dwarf wiping down a glass.\nJust exiting the kitchen is the red-faced inkeep, carrying a bill in one hand and a plate of stewed rabbit in the other."
-      patrons
-      input = Input.new("What would you like to do?\nSpeak to the [B]artender.\nGet the attention of the [I]nnkeep.\nApproach one of the [P]atrons.\n[L]eave the tavern.", %[B I P L]).get_char
-      tavern_action(input)
-    end
-
-    def patrons
-      # These are the only patrons for now. At a later point, I'll create a database of patrons and a Patrons object, with a quest tied to each npc. What patrons will appear will be determined by the quests that are currently available.
-      puts "Among the patrons you see a group of angry-looking farmers, a well-armed man in a ragged cloak, and a young boy attempting to hold back tears."
-    end
-
-    def tavern_action(input)
-      case input
-      when "B"
-        chat_in_tavern_with(:bartender)
-      when "I"
-        chat_in_tavern_with(:innkeep)
-      when "P"
-        chat_in_tavern_with(:patron)
-      when "L"
-        village_action_choice
-      end
-    end
-
-    def chat_in_tavern_with(npc)
-      Conversation.new(player).self(npc)
       sleep 0.5
       tavern_choice
     end

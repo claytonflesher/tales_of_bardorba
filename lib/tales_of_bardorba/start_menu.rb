@@ -7,7 +7,7 @@ module TalesOfBardorba
     def show
       puts "Welcome to Tales of Bardorba..."
       puts "    ...where you face Your Worst Nightmare."
-      response = Input.new("Would you like to start a [N]ew game or [L]oad an existing one?", %w[N L]).get_char
+      response = Input.new(:start_menu).get_char
       case response
       when "N"
         NewGameMenu.new.show

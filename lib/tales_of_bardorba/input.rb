@@ -2,18 +2,29 @@ require "io/console"
 
 module TalesOfBardorba
   class Input
-    def initialize(question, answers = nil)
-      @question = question
-      @answers  = answers
+    def initialize(filename)
+      @filename = filename
+      @contents = Hash.new
     end
 
-    attr_reader :question, :answers
+    attr_reader :filename, :contents
+
+    def upload(filename)
+      File.open("../../input/data/#{filename}.txt", "r") do |f|
+        while (line = f.gets)
+          contents[:question] = line.strip
+          contents[:available_answers] = line[1].strip
+          puts contents
+        end
+      end
+    end
 
     def get_char
-      print "#{question}  "
+      upload(filename)
+      print "#{contents[:question]}  "
       response = $stdin.getch.upcase 
       puts response
-      if answers.nil? || answers.include?(response)
+      if contents[:available_answers].nil? || contents[:available_answers].include?(response)
         response
       else
         puts "Oops. I didn't understand your reponse."
@@ -22,9 +33,10 @@ module TalesOfBardorba
     end
 
     def get_line
-      print "#{question}  "
+      upload(filename)
+      print "#{contents[:question]}  "
       response = gets.strip
-      if answers.nil? || answers.include?(response)
+      if contents[:available_answers].nil? || contents[:available_answers].include?(response)
         response
       else
         puts "Oops. I didn't understand your reponse."

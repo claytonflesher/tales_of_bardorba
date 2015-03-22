@@ -2,12 +2,13 @@ require "io/console"
 
 module TalesOfBardorba
   class Input
-    def initialize(filename)
-      @filename                     = filename
-      @contents                     = Hash.new
+    def initialize(filename, available = nil)
+      @filename  = filename
+      @available = available
+      @contents  = Hash.new
     end
 
-    attr_reader :filename, :contents
+    attr_reader :filename, :available, :contents
 
     def download(category)
       contents[category] = Array.new
@@ -40,13 +41,21 @@ module TalesOfBardorba
 
     def get_line
       download(:question)
-      download(:answers)
+      check_available
       response = gets.strip
       if contents[:answers].any? { |answer| answer.split.include?(response) || answer == "any" }
         response
       else
         puts "Oops. I didn't understand your reponse."
         get_line
+      end
+    end
+
+    def check_available
+      if available != nil
+        contents[:answers] = available
+      else
+        download(:answers)
       end
     end
   end

@@ -22,13 +22,13 @@ module TalesOfBardorba
 
     def query_parameters
       if @player.magic == true && @player.feats == true
-        @action = Input.new("[A]ttack\nA[B]ility\n[S]pell\n[R]un\n?", %w[A B S R]).get_char
+        @action = Input.new(:combat_query_all).get_char
       elsif @player.magic == true && @player.feats == false
-        @action = Input.new("[A]ttack\n[S]pell\n[R]un\n?", %w[A S R]).get_char
+        @action = Input.new(:combat_query_mage).get_char
       elsif @player.magic == false && @player.feats == true
-        @action = Input.new("[A]ttack\nA[B]ility\n[R]un\n?", %w[A B R]).get_char
+        @action = Input.new(:combat_query_streetrat).get_char
       elsif @player.magic == false && @player.feats == false
-        @action = Input.new("[A]ttack\n[R]un\n?", %w[A R]).get_char
+        @action = Input.new(:combat_query_squire).get_char
       end
     end
 
@@ -41,7 +41,7 @@ module TalesOfBardorba
         puts "Your available encounter abilities are #{encounter.join(", ")}"
         available += encounter
       end
-      Input.new("Which of your abilites would you like to use?", available).get_line
+      Input.new(:combat_ability, available).get_line
     end
 
     def choose_spell
@@ -53,7 +53,7 @@ module TalesOfBardorba
         puts "Your available encounter spells are #{encounter.join(", ")}"
         available += encounter
       end
-      Input.new("Which of your spells would you like to use?", available).get_line
+      Input.new(:combat_spell, available).get_line
     end
   end
 end

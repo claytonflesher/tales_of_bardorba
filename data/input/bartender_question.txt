@@ -1,0 +1,3 @@
+Buy a drink?
+[Y]es
+[N]o

@@ -1,0 +1,5 @@
+What would you like to do?
+Speak to the [B]artender.
+Get the attention of the [I]nnkeep.
+Approach one of the [P]atrons.
+[L]eave the tavern.

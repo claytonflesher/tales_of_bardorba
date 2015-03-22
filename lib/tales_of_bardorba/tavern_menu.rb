@@ -12,7 +12,7 @@ module TalesOfBardorba
     def look_around
       puts "Behind the bar stands a grim looking dwarf wiping down a glass.\nJust exiting the kitchen is the red-faced innkeep, carrying a bill in one hand and a plate of stewed rabbit in the other."
       patrons
-      input = Input.new("What would you like to do?\nSpeak to the [B]artender.\nGet the attention of the [I]nnkeep.\nApproach one of the [P]atrons.\n[L]eave the tavern.", %[B I P L]).get_char
+      input = Input.new(:tavern).get_char
       tavern_action(input)
     end
 

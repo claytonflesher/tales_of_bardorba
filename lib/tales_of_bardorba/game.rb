@@ -32,7 +32,7 @@ module TalesOfBardorba
     def village_action_choice
       @in_village = true
       puts "You find yourself in a rustic village in the middle of a strange but sexy world."
-      response = Input.new("What would you like to do?\n\n[E]xplore the world outside the village.\nGo to the local [T]avern\n[S]ave your game.\n[Q]uit with your tail between your legs.\n?", %w[E T S Q]).get_char
+      response = Input.new(:village_choice).get_char
       village_action(response)
     end
 
@@ -68,7 +68,7 @@ module TalesOfBardorba
     end
 
     def world_action_choice
-      input = Input.new("That over, what would you like to do now?\n[R]eturn to the village.\n[C]ontinue exploring the world.", %w[R C]).get_char
+      input = Input.new(:world_choice).get_char
       case input
       when "R"
         @in_village = true

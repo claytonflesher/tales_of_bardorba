@@ -12,7 +12,8 @@ module TalesOfBardorba
     attr_reader :player
     
     def bartender
-      input = Input.new("Buy a drink? It'll cost you $#{BARCOST}.\n[Y]es\n[N]o", %[Y N]).get_char
+      puts "It'll cost you $#{BARCOST}."
+      input = Input.new(:bartender).get_char
       if input == "Y"
         if player.money >= BARCOST
           get_drunk
@@ -32,7 +33,8 @@ module TalesOfBardorba
     end
 
     def innkeep
-      input = Input.new("Get a room? It'll cost you $#{INNCOST}.\n[Y]es\n[N]o", %[Y N]).get_char
+      puts "It'll cost you $#{INNCOST}."
+      input = Input.new(:innkeep).get_char
       if input == "Y"
         if player.money >= INNCOST
           get_room
@@ -53,7 +55,7 @@ module TalesOfBardorba
 
     def patron
       Game.new(player).patrons
-      input = Input.new("Who would you like to speak to?\nThe [F]armers\nThe well-armed [M]an\nThe [B]oy", %[F M B]).get_char
+      input = Input.new(:choose_patron).get_char
       speak_to_patron(input)
     end
 

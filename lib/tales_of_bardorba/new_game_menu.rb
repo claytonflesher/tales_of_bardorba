@@ -6,8 +6,8 @@ require_relative "game"
 module TalesOfBardorba
   class NewGameMenu
     def show
-      name       = Input.new("What would you like to name your character?").get_line
-      profession = Input.new("What class would you like #{name} to be?\nsquire\nstreetrat\nmagician\n?", %w[squire streetrat magician]).get_line
+      name       = Input.new(:name).get_line
+      profession = Input.new(:class).get_line
       job = Job.new(profession)
       job.load
       player = Player.new(name)

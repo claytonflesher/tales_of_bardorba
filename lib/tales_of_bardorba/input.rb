@@ -3,28 +3,34 @@ require "io/console"
 module TalesOfBardorba
   class Input
     def initialize(filename)
-      @filename = filename
-      @contents = Hash.new
+      @filename                     = filename
+      @contents                     = Hash.new
     end
 
     attr_reader :filename, :contents
 
-    def upload(filename)
-      File.open(File.join(__dir__, "../../data/input/#{filename}.txt", "r")) do |f|
-        while (line = f.gets)
-          contents[:question] = line.strip
-          contents[:available_answers] = line[1].strip
-          puts contents
-        end
+    def download(category)
+      contents[category] = Array.new
+      File.foreach(File.join(__dir__, "../../data/input/#{filename}_#{category}.txt")) do |f|
+        contents[category] << f.strip
+      end
+      if category == :question
+        statement(category)
+      end
+    end
+
+    def statement(category)
+      contents[category].each do |line|
+        puts line
       end
     end
 
     def get_char
-      upload(filename)
-      print "#{contents[:question]}  "
+      download(:question)
+      download(:answers)
       response = $stdin.getch.upcase 
       puts response
-      if contents[:available_answers].nil? || contents[:available_answers].include?(response)
+      if contents[:answers].any? { |answer| answer.split.include?(response) }
         response
       else
         puts "Oops. I didn't understand your reponse."
@@ -33,10 +39,10 @@ module TalesOfBardorba
     end
 
     def get_line
-      upload(filename)
-      print "#{contents[:question]}  "
+      download(:question)
+      download(:answers)
       response = gets.strip
-      if contents[:available_answers].nil? || contents[:available_answers].include?(response)
+      if contents[:answers].any? { |answer| answer.split.include?(response) || answer == "any" }
         response
       else
         puts "Oops. I didn't understand your reponse."

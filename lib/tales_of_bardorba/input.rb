@@ -10,7 +10,7 @@ module TalesOfBardorba
     attr_reader :filename, :contents
 
     def upload(filename)
-      File.open(__dir__, "../../data/input/#{filename}.txt", "r") do |f|
+      File.open(File.join(__dir__, "../../data/input/#{filename}.txt", "r")) do |f|
         while (line = f.gets)
           contents[:question] = line.strip
           contents[:available_answers] = line[1].strip

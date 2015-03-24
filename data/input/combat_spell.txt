@@ -1,1 +1,2 @@
 Which of your spells would you like to use?
+--any--

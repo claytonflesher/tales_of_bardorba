@@ -1,1 +1,2 @@
 Would you like to start a [N]ew game or [L]oad an existing one?
+N L

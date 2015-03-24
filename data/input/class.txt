@@ -2,3 +2,4 @@ What class would you like to be?
 squire
 streetrat
 magician
+squire streetrat magician

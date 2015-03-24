@@ -2,3 +2,4 @@
 [S]pell
 [R]un
 ?
+A S R

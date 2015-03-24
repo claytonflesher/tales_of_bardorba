@@ -1,3 +1,4 @@
 Get a room?
 [Y]es
 [N]o
+Y N

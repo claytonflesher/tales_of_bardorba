@@ -1,3 +1,4 @@
 That over, what would you like to do now?
 [R]eturn to the village.
 [C]ontinue exploring the world.
+R C

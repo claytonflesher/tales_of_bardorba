@@ -32,17 +32,18 @@ module TalesOfBardorba
     attr_reader :name, :hp, :hit, :defense, :encounter_spells,
                 :encounter_abilities, :level, :experience, :profession, :magic,
                 :feats, :hpmax, :at_will_available, :encounter_available,
-                :status_effects, :money
+                :status_effects, :money, :quests_completed
 
     def assign_starting_stats(job)
       %i[hpmax hit defense magic feats hp].each do |name|
         instance_variable_set("@#{name}", job.send(name))
       end
-      @default_hit     = job.hit
-      @default_defense = job.defense
-      @profession      = job.name
-      @minimum_money   = 0
-      @money           = @minimum_money
+      @default_hit      = job.hit
+      @default_defense  = job.defense
+      @profession       = job.name
+      @minimum_money    = 0
+      @money            = @minimum_money
+      @quests_completed = 0
     end
 
     def at_will_spells_list
@@ -130,6 +131,10 @@ module TalesOfBardorba
       if @money < @minimum_money
         @money = @minimum_money
       end
+    end
+
+    def complete_quest
+      @quests_completed += 1
     end
   end
 end

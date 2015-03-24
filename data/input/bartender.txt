@@ -1,3 +1,4 @@
 Buy a drink?
 [Y]es
 [N]o
+Y N

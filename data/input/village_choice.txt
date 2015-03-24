@@ -4,3 +4,4 @@ Go to the local [T]avern
 [S]ave your game.
 [Q]uit with your tail between your legs.
 ?
+E T S Q

@@ -10,29 +10,28 @@ module TalesOfBardorba
 
     attr_reader :filename, :available, :contents
 
-    def download(category)
-      contents[category] = Array.new
-      File.foreach(File.join(__dir__, "../../data/input/#{filename}_#{category}.txt")) do |f|
-        contents[category] << f.strip
+    def download_file
+      data = Array.new
+      File.foreach(File.join(__dir__, "../../data/input/#{filename}.txt")) do |f|
+        data << f.strip
       end
-      if category == :question
-        statement(category)
-      end
+      @contents[:question] = data[0..-2]
+      @contents[:answers]  = data[-1].split
+      ask_question
     end
 
-    def statement(category)
-      contents[category].each do |line|
+    def ask_question
+      contents[:question].each do |line|
         puts line
       end
     end
 
     def get_char
-      download(:question)
-      download(:answers)
+      download_file
       response = $stdin.getch.upcase 
       puts response
-      if contents[:answers].any? { |answer| answer.split.include?(response) }
-        response
+      if contents[:answers].include?(response)
+        return response
       else
         puts "Oops. I didn't understand your reponse."
         get_char
@@ -40,22 +39,21 @@ module TalesOfBardorba
     end
 
     def get_line
-      download(:question)
-      check_available
+      check_available_and_download_file
       response = gets.strip
-      if contents[:answers].any? { |answer| answer.split.include?(response) || answer == "any" }
-        response
+      if contents[:answers].include?(response) || contents[:answers].include?("--any--")
+        return response
       else
         puts "Oops. I didn't understand your reponse."
         get_line
       end
     end
 
-    def check_available
+    def check_available_and_download_file
       if available != nil
         contents[:answers] = available
       else
-        download(:answers)
+        download_file
       end
     end
   end

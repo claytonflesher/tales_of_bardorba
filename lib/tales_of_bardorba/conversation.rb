@@ -54,7 +54,6 @@ module TalesOfBardorba
     end
 
     def patron
-      Game.new(player).patrons
       input = Input.new(:choose_patron).get_char
       speak_to_patron(input)
     end

@@ -1,4 +1,3 @@
-require_relative "serializer"
 require_relative "player"
 
 module TalesOfBardorba
@@ -6,12 +5,11 @@ module TalesOfBardorba
     FILENAME = File.join(__dir__, "../../data/saved_game.txt")
 
     def create(player)
-      Serializer.new(player).save(FILENAME)
+      File.open(FILENAME, "w") { |f| f.write Marshal.dump(player) }
     end
 
     def load
-      player = Player.new
-      Serializer.new(player).load(FILENAME)
+      player = Marshal.load(File.read(FILENAME))
       player.reset_stats
       player
     end

@@ -1,3 +1,6 @@
+# Legacy Code. Only used for reference. No longer required by any other objects.
+# Do not implement. 
+# Tales of Bardorba now makes use of Marshal for object serialization.
 module TalesOfBardorba
   class Serializer
     def initialize(object)

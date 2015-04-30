@@ -5,20 +5,18 @@ module TalesOfBardorba
     end
 
     def load_numbers
-      table = Array.new
-      File.open(@file, "r") do |f|
-        while (line = f.gets)
-          table << line.to_i
-        end
-      end
-      return table
+      load { |line| line.to_i }
     end
 
     def load_strings
+      load { |line| line.strip }
+    end
+
+    def load
       table = Array.new
       File.open(@file, "r") do |f|
         while (line = f.gets)
-          table << line.strip
+          table << yield(line)
         end
       end
       return table

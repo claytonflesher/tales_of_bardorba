@@ -12,6 +12,8 @@ module TalesOfBardorba
       load { |line| line.strip }
     end
 
+    private
+
     def load
       table = Array.new
       File.open(@file, "r") do |f|

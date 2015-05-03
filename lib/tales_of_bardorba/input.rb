@@ -10,6 +10,7 @@ module TalesOfBardorba
     end
 
     attr_reader :filename, :available, :question, :answers
+    private :filename, :available, :question, :answers
 
     def download_file
       lines     = File.readlines(File.join(__dir__, "../../data/input/#{filename}.txt"))
@@ -40,6 +41,8 @@ module TalesOfBardorba
         get_line
       end
     end
+
+    private
 
     def check_available_and_download_file
       if available != nil

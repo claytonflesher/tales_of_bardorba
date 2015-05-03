@@ -14,12 +14,15 @@ module TalesOfBardorba
     end
 
     attr_reader :player, :enemy_chooser, :in_village
+    private :player, :enemy_chooser, :in_village
 
     def play
       until player.dead?
         make_a_choice
       end
     end
+
+    private
 
     def make_a_choice
       if in_village?

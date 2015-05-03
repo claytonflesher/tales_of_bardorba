@@ -16,6 +16,8 @@ module TalesOfBardorba
       tavern_action(input)
     end
 
+    private
+
     def patrons
       # These are the only patrons for now. At a later point, I'll create a database of patrons and a Patrons object, with a quest tied to each npc. What patrons will appear will be determined by the quests that are currently available.
       puts "Among the patrons you see a group of angry-looking farmers, a well-armed man in a ragged cloak, and a young boy attempting to hold back tears."

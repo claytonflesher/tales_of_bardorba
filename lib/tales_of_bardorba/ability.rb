@@ -19,6 +19,7 @@ module TalesOfBardorba
     end
 
     attr_reader :caster, :opponent, :ability_chosen
+    private :caster, :opponent, :ability_chosen
 
     def resolve
       send(@ability_chosen.downcase)
@@ -185,6 +186,3 @@ module TalesOfBardorba
     end
   end
 end
-
-
-

@@ -20,6 +20,8 @@ module TalesOfBardorba
       end
     end
 
+    private
+
     def query_parameters
       if @player.magic == true && @player.feats == true
         @action = Input.new(:combat_query_all).get_char

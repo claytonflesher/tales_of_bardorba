@@ -11,6 +11,7 @@ module TalesOfBardorba
     end
 
     attr_reader :player, :enemy, :ran_away
+    private :player, :enemy, :ran_away
 
     def resolve
       until player.dead? || enemy.dead? || ran_away?
@@ -24,6 +25,8 @@ module TalesOfBardorba
       end
       player.reset_stats
     end
+
+    private
 
     def win
       puts "Congrats, you vanquished #{enemy.name}."

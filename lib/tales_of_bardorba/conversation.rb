@@ -10,6 +10,7 @@ module TalesOfBardorba
     end
 
     attr_reader :player
+    private :player
     
     def bartender
       puts "It'll cost you $#{BARCOST}."
@@ -58,17 +59,6 @@ module TalesOfBardorba
       speak_to_patron(input)
     end
 
-    def speak_to_patron(input)
-      case input
-      when "F"
-        farmers
-      when "M"
-        man
-      when "B"
-        boy
-      end
-    end
-
     def farmers
       puts "yadda yadda yadda"
       # farmers quest
@@ -78,10 +68,18 @@ module TalesOfBardorba
       puts "yadda yadda yadda"
       # man quest
     end
-
-    def boy
-      puts "yadda yadda yadda"
-      # boy quest
+    
+    private
+    
+    def speak_to_patron(input)
+      case input
+      when "F"
+        farmers
+      when "M"
+        man
+      when "B"
+        boy
+      end
     end
   end
 end
